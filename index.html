@@ -193,7 +193,7 @@
 
 <script>
 const KEY='tracker_5x5_v1';
-const VERSION='v13 · 10-09-2026 · 4 niveles con marcador';
+const VERSION='v15 · 11-09-2026 · sin datos personales';
 const DIAS=['L','M','X','J','V','S','D'];
 const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
@@ -303,20 +303,11 @@ function inicial(){
          {n:'Curl bíceps mancuerna',w:10,inc:2,s:3,r:12,opt:true}],
       C:[{n:'Fondos',w:0,inc:2.5,s:5,r:5},{n:'Remo en barra',w:40,inc:2.5,s:5,r:5},{n:'Zancadas',w:12,inc:2,s:3,r:10},
          {n:'Press banca inclinado',w:40,inc:2.5,s:5,r:5,opt:true}],
-      series:5, reps:5, altura:183, edad:34, bmrRef:1887,
-      objetivo:{peso:85,fecha:'2026-12-31'}
+      series:5, reps:5, altura:183, edad:30, bmrRef:1800,
+      objetivo:{peso:75,fecha:'2027-06-30'}
     },
-    peso:[
-      {fecha:'2023-07-02',peso:84.75,grasa:24.9,musculoEsq:48.5,masaMuscular:60.5,agua:54.2,proteina:17.2,masaOsea:3.18,visceral:8,subcutanea:22.2,bmr:1744,edadMet:31},
-      {fecha:'2026-09-08',peso:93},
-      {fecha:'2026-09-09',peso:93.75,grasa:28.6,musculoEsq:46.2,masaMuscular:63.6,agua:51.6,proteina:16.2,masaOsea:3.35,visceral:10,subcutanea:25.2,bmr:1815,edadMet:38}
-    ],
-    medidas:[
-      {fecha:'2021-10-23',cuello:37,hombros:112,pecho:106.5,cintura:89.3,abdomen:93.2,cadera:100,bicepsI:35.5,bicepsD:35,musloI:63.5,musloD:63,gemeloI:40.1,gemeloD:40.1},
-      {fecha:'2022-01-02',cuello:38,hombros:115,pecho:101.5,cintura:82.5,abdomen:90.5,cadera:91.5,bicepsI:35,bicepsD:36,musloI:61,musloD:60.5,gemeloI:39.5,gemeloD:39.5},
-      {fecha:'2022-03-26',cuello:37,hombros:116,pecho:101.5,cintura:80,abdomen:87.5,cadera:89,bicepsI:35,bicepsD:35,musloI:60,musloD:59,gemeloI:38,gemeloD:39},
-      {fecha:'2026-09-08',cuello:39,hombros:115,pecho:100.9,cintura:93,abdomen:106,cadera:109,bicepsI:37,bicepsD:38,musloI:67,musloD:66,gemeloI:41,gemeloD:41}
-    ],
+    peso:[],
+    medidas:[],
 
     dias:{}
   };
@@ -326,23 +317,10 @@ function migrar(){
   if(!S.dias) S.dias={};
   if(!S.config.objetivo) S.config.objetivo=d.config.objetivo;
   if(!S.config.altura) S.config.altura=183;
-  if(!S.config.edad) S.config.edad=34;
-  if(!S.config.bmrRef) S.config.bmrRef=1887;
-  if(!S.config.pesada0909){
-    if(!S.peso.some(r=>r.fecha==='2026-09-09')){
-      S.peso.push({fecha:'2026-09-09',peso:93.75,grasa:28.6,musculoEsq:46.2,masaMuscular:63.6,agua:51.6,proteina:16.2,masaOsea:3.35,visceral:10,subcutanea:25.2,bmr:1815,edadMet:38});
-      S.peso.sort(ordFecha);
-    }
-    S.config.pesada0909=true;
-  }
-  if(!S.config.cTiron){
-    const c=S.config.C;
-    if(Array.isArray(c)){
-      const rem=c.find(e=>e.n==='Remo en barra'), inc=c.find(e=>e.n==='Press banca inclinado');
-      if(rem&&inc&&rem.opt&&!inc.opt){ rem.opt=false; inc.opt=true; c.sort((a,b)=>(a.opt?1:0)-(b.opt?1:0)); }
-    }
-    S.config.cTiron=true;
-  }
+  if(!S.config.edad) S.config.edad=30;
+  if(!S.config.bmrRef) S.config.bmrRef=1800;
+
+
   Object.values(S.dias).forEach(v=>{ if(v.andar===true&&!v.cardio) v.cardio='andar'; delete v.andar; });
   const REN={'Press banca':'Press banca plano','Remo T-barra':'Remo barra T','Press inclinado':'Press banca inclinado','Dominadas':'Dominada','Remo T':'Remo barra T','Tríceps':'Extensiones tríceps','Curl de bíceps':'Curl bíceps mancuerna'};
   TIPOS.forEach(t=>{
@@ -364,17 +342,8 @@ function migrar(){
   }
   (S.medidas||[]).forEach(m=>{delete m.peso;});
   if(!S.medidas||!S.medidas.length) S.medidas=d.medidas;
-  if(!S.config.histRenpho){
-    d.medidas.forEach(r=>{ if(!S.medidas.some(x=>x.fecha===r.fecha)) S.medidas.push(Object.assign({},r)); });
-    S.medidas.sort(ordFecha);
-    S.config.histRenpho=true;
-  }
-  if(!S.config.pesoRenpho908){
-    const r0908={fecha:'2026-09-09',peso:93.75,grasa:28.6,musculoEsq:46.2,masaMuscular:63.6,agua:51.6,proteina:16.2,masaOsea:3.35,visceral:10,subcutanea:25.2,bmr:1815,edadMet:38};
-    if(!S.peso.some(x=>x.fecha===r0908.fecha)) S.peso.push(r0908);
-    S.peso.sort(ordFecha);
-    S.config.pesoRenpho908=true;
-  }
+
+
 }
 const ordFecha=(a,b)=>a.fecha<b.fecha?-1:1;
 const basicos=t=>S.config[t].filter(e=>!e.opt);
