@@ -64,6 +64,8 @@
   .set.full{background:var(--pen);border-color:var(--pen);color:#fff}
   .set.part{background:var(--paper);border-color:var(--ink);box-shadow:inset 0 0 0 3px var(--paper),inset 0 0 0 5px var(--ink)}
   .set.zero{color:var(--rule)}
+  .set.addset{flex:0 0 34px;border-style:dashed;font-weight:400;font-size:19px;line-height:1;color:var(--ink)}
+  .set.delset{flex:0 0 26px;border-style:dashed;font-weight:400;font-size:17px;line-height:1;color:var(--mut)}
   input.set{font:inherit;font-weight:700;font-size:15px;text-align:center;color:var(--ink);background:var(--paper);border:1.5px dashed var(--ink);width:100%;-moz-appearance:textfield}
   input.set::-webkit-outer-spin-button,input.set::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
   .mini{background:transparent;border:1px solid var(--rule);padding:4px 9px;font-size:12px;color:var(--mut)}
@@ -86,6 +88,13 @@
   .day .walk.bici{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink)}
   .day.sel{box-shadow:inset 0 0 0 2px var(--ink);background:var(--grid)}
   .day .tag.manual{opacity:.5}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end}
+  .modal .caja{background:var(--paper);border-top:2px solid var(--ink);width:100%;max-width:560px;margin:0 auto;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+  .modal h3{margin:0 0 4px;font-size:17px;font-weight:700}
+  .opcf{display:block;width:100%;text-align:left;border:1.5px solid var(--rule);background:transparent;padding:12px;margin-top:8px;font-size:15px}
+  .opcf[aria-pressed="true"]{border-color:var(--ink);border-width:2px;font-weight:700}
+  .opcf small{display:block;color:var(--mut);font-size:12px;font-weight:400;margin-top:2px}
+  .modal input[type=date]{width:100%;font:inherit;font-size:17px;padding:11px;border:2px solid var(--ink);background:transparent;margin-top:8px}
   .diadet{border:1.5px solid var(--ink);padding:12px;margin-top:12px}
   .diadet .exf{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--grid)}
   .diadet .exf:last-child{border-bottom:0}
@@ -115,9 +124,6 @@
   .niv div{flex:1;border-right:1px solid var(--ink);position:relative}
   .niv div:last-child{border-right:0}
   .niv div.hecho{background:var(--ink)}
-  .nivlbl{display:flex;margin-top:4px}
-  .nivlbl span{flex:1;font-size:9px;letter-spacing:-.02em;color:var(--mut);text-align:center}
-  .nivlbl span.act{color:var(--ink);font-weight:700}
   .marca{position:absolute;top:-8px;bottom:-8px;width:3px;background:var(--red);left:0}
   .est{display:grid;grid-template-columns:1fr 52px 68px 74px;gap:6px;align-items:end;margin-bottom:6px}
   .est input{width:100%;font:inherit;font-size:13px;padding:5px 6px;border:1px solid var(--rule);background:transparent;text-align:right}
@@ -128,6 +134,11 @@
     background-position:calc(100% - 9px) 12px,calc(100% - 4px) 12px;background-size:5px 5px;background-repeat:no-repeat}
   .opt{color:var(--mut)}
   .subh{font-size:11px;color:var(--mut);margin:10px 0 2px;padding-top:8px;border-top:1px dashed var(--rule)}
+  .bloque{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 2px;padding-bottom:5px;border-bottom:2px solid var(--ink)}
+  .bloque h3{margin:0;font-size:13px;font-weight:700;letter-spacing:.02em}
+  .bloque span{font-size:11px;color:var(--mut)}
+  .addej{display:block;width:100%;background:transparent;border:1.5px dashed var(--ink);padding:11px;font-size:14px;font-weight:700;margin-top:10px}
+  .quitar{background:transparent;border:1px solid var(--rule);color:var(--mut);font-size:11px;padding:3px 8px}
   .week{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
   .week div{background:var(--paper);padding:7px 2px;text-align:center;font-size:11px}
   .week b{display:block;font-size:13px;margin-top:3px}
@@ -142,6 +153,20 @@
   .minibar{height:6px;border:1px solid var(--ink);margin-top:6px;position:relative}
   .minibar i{display:block;height:100%;background:var(--ink)}
   .done{font-weight:700}
+  .mrow{padding:11px 0;border-bottom:1px solid var(--grid)}
+  .mrow:last-child{border-bottom:0}
+  .mrow .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .mrow .top span{font-size:13px}
+  .mrow .top b{font-size:19px;font-weight:700;letter-spacing:-.02em}
+  .mrow .top b em{font-style:normal;font-size:12px;font-weight:400;color:var(--mut)}
+  .escbar{position:relative;display:flex;height:10px;border:1.5px solid var(--ink);margin-top:11px}
+  .escbar div{flex:1;border-right:1px solid var(--ink)}
+  .escbar div:last-child{border-right:0}
+  .escbar div.on{background:var(--ink)}
+  .escbar em{position:absolute;top:-8px;margin-left:-5px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid var(--ink)}
+  .esclbl{display:flex;margin-top:4px}
+  .esclbl span{flex:1;font-size:8.5px;line-height:1.2;text-align:center;color:var(--mut);padding:0 1px}
+  .esclbl span.act{color:var(--ink);font-weight:700}
   .bar{height:9px;border:1.5px solid var(--ink);margin:10px 0 2px;background:var(--paper)}
   .bar i{display:block;height:100%;background:var(--pen)}
   svg.g{width:100%;height:auto;display:block;margin-top:4px}
@@ -168,6 +193,7 @@
 
 <script>
 const KEY='tracker_5x5_v1';
+const VERSION='v13 · 10-09-2026 · 4 niveles con marcador';
 const DIAS=['L','M','X','J','V','S','D'];
 const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
@@ -277,7 +303,7 @@ function inicial(){
          {n:'Curl bíceps mancuerna',w:10,inc:2,s:3,r:12,opt:true}],
       C:[{n:'Fondos',w:0,inc:2.5,s:5,r:5},{n:'Remo en barra',w:40,inc:2.5,s:5,r:5},{n:'Zancadas',w:12,inc:2,s:3,r:10},
          {n:'Press banca inclinado',w:40,inc:2.5,s:5,r:5,opt:true}],
-      series:5, reps:5, altura:183,
+      series:5, reps:5, altura:183, edad:34, bmrRef:1887,
       objetivo:{peso:85,fecha:'2026-12-31'}
     },
     peso:[
@@ -291,9 +317,7 @@ function inicial(){
       {fecha:'2022-03-26',cuello:37,hombros:116,pecho:101.5,cintura:80,abdomen:87.5,cadera:89,bicepsI:35,bicepsD:35,musloI:60,musloD:59,gemeloI:38,gemeloD:39},
       {fecha:'2026-09-08',cuello:39,hombros:115,pecho:100.9,cintura:93,abdomen:106,cadera:109,bicepsI:37,bicepsD:38,musloI:67,musloD:66,gemeloI:41,gemeloD:41}
     ],
-    pesoRenpho:[
-      {fecha:'2026-09-09',peso:93.75,grasa:28.6,musculoEsq:46.2,masaMuscular:63.6,agua:51.6,proteina:16.2,masaOsea:3.35,visceral:10,subcutanea:25.2,bmr:1815,edadMet:38}
-    ],
+
     dias:{}
   };
 }
@@ -302,6 +326,8 @@ function migrar(){
   if(!S.dias) S.dias={};
   if(!S.config.objetivo) S.config.objetivo=d.config.objetivo;
   if(!S.config.altura) S.config.altura=183;
+  if(!S.config.edad) S.config.edad=34;
+  if(!S.config.bmrRef) S.config.bmrRef=1887;
   if(!S.config.pesada0909){
     if(!S.peso.some(r=>r.fecha==='2026-09-09')){
       S.peso.push({fecha:'2026-09-09',peso:93.75,grasa:28.6,musculoEsq:46.2,masaMuscular:63.6,agua:51.6,proteina:16.2,masaOsea:3.35,visceral:10,subcutanea:25.2,bmr:1815,edadMet:38});
@@ -344,7 +370,8 @@ function migrar(){
     S.config.histRenpho=true;
   }
   if(!S.config.pesoRenpho908){
-    (d.pesoRenpho||[]).forEach(r=>{ if(!S.peso.some(x=>x.fecha===r.fecha)) S.peso.push(Object.assign({},r)); });
+    const r0908={fecha:'2026-09-09',peso:93.75,grasa:28.6,musculoEsq:46.2,masaMuscular:63.6,agua:51.6,proteina:16.2,masaOsea:3.35,visceral:10,subcutanea:25.2,bmr:1815,edadMet:38};
+    if(!S.peso.some(x=>x.fecha===r0908.fecha)) S.peso.push(r0908);
     S.peso.sort(ordFecha);
     S.config.pesoRenpho908=true;
   }
@@ -392,10 +419,7 @@ function incDe(n){
   for(const t of TIPOS){const e=(S.config[t]||[]).find(x=>x.n===n);if(e&&e.inc!=null)return e.inc;}
   const c=catDe(n); return c?c.inc:2.5;
 }
-function pesoInicial(n){
-  for(const t of TIPOS){const e=(S.config[t]||[]).find(x=>x.n===n);if(e)return e.w;}
-  const c=catDe(n); return c?c.w:0;
-}
+
 function semanaActual(){
   const d=new Date(), dw=(d.getDay()+6)%7, l=new Date(d); l.setDate(d.getDate()-dw);
   let ses=0,and=0;
@@ -458,29 +482,23 @@ function vInicio(){
     <div class="defin">
       Rutina <b>full body</b> con <b>tres ejercicios básicos por sesión</b> —uno de <b>tirón</b>, uno de <b>empuje</b> y uno de <b>pierna</b>— más <b>uno o dos accesorios opcionales</b>.
     </div>
-    <div class="mut" style="margin-top:10px">Día sí día no, rotando A → B → C. Cardio los días libres: caminar o bicicleta.</div>
+
   </div>
 
   <div class="sec">
     ${TIPOS.map(tarjetaSesion).join('')}
     <div class="card">
       <h3>Sesión D · aleatoria <span>1 empuje + 1 tirón + 1 pierna</span></h3>
-      <div class="mut" style="font-size:13px">Para romper la rutina: en la pestaña Sesión pulsa «D aleatoria» y se sortea un ejercicio de cada patrón del catálogo. Las cargas se heredan del historial de cada ejercicio, así que no pierdes progresión.</div>
     </div>
   </div>
 
   <div class="sec">
-    <h2>Ejercicios básicos disponibles</h2>
-    <div class="mut" style="margin-bottom:10px">Estos son los que usa la rutina. En la pestaña Sesión puedes cambiar cualquier ejercicio por otro de su mismo grupo desde el desplegable, sin escribir nada.</div>
-    ${['push','pull','pierna'].map(g=>`
+    <h2>Ejercicios disponibles</h2>
+    ${['push','pull','pierna','accesorio'].map(g=>`
       <div class="grupo">
-        <h4>${PAT[g]}</h4>
-        <ul>${CAT.filter(c=>c.g===g).map(c=>`<li><span style="color:var(--ink);font-size:14px">${esc(c.n)}</span><span>${c.s}×${c.r}${c.inc?` · +${fmt(c.inc)} kg`:' · peso corporal'}</span></li>`).join('')}</ul>
+        <h4>${g==='accesorio'?'ACCESORIOS':PAT[g]}</h4>
+        <ul>${CAT.filter(c=>c.g===g).map(c=>`<li><span style="color:var(--ink);font-size:14px">${esc(c.n)}</span></li>`).join('')}</ul>
       </div>`).join('')}
-    <div class="grupo">
-      <h4>ACCESORIOS</h4>
-      <ul>${CAT.filter(c=>c.g==='accesorio').map(c=>`<li><span style="color:var(--ink);font-size:14px">${esc(c.n)}</span><span>${c.s}×${c.r}</span></li>`).join('')}</ul>
-    </div>
   </div>
 
   <div class="sec">
@@ -530,29 +548,20 @@ const PAT={pull:'TIRÓN',push:'EMPUJE',pierna:'PIERNA',accesorio:'ACC'};
 const patDe=n=>{const c=catDe(n);return c?c.g:null;};
 function lift(e,opc){
   const g=patDe(e.n);
-  const w=pesoActual(e.n), b=barDe(e.n);
-  const extra=(b>0&&!esMan(e.n)&&w>=b)?` <span class="mut" style="font-weight:400">(${fmt((w-b)/ladosDe(e.n))}${esUna(e.n)?' discos':'/lado'})</span>`:(esMan(e.n)?' <span class="mut" style="font-weight:400">c/u</span>':'');
-  return `<div class="lift${opc?' opt':''}"><span>${g?`<span class="pat">${PAT[g]}</span>`:''}${esc(e.n)}</span><span class="k">${fmt(w)} kg${extra} · ${e.s}×${e.r}</span></div>`;
+  return `<div class="lift${opc?' opt':''}"><span>${g?`<span class="pat">${PAT[g]}</span>`:''}${esc(e.n)}</span></div>`;
 }
 function tarjetaSesion(t){
   const b=basicos(t), o=opcionales(t);
   const falta=['pull','push','pierna'].filter(g=>!b.some(e=>patDe(e.n)===g));
   return `<div class="card">
-    <h3>Sesión ${t} · full body <span>${b.length} básicos${o.length?' + '+o.length+' opcionales':''}</span></h3>
+    <h3>Sesión ${t}</h3>
     ${b.map(e=>lift(e)).join('')}
     ${falta.length?`<div class="note" style="margin-top:8px"><span class="pat falta">${falta.map(g=>PAT[g]).join(' · ')}</span> sin cubrir entre los básicos</div>`:''}
     ${o.length?`<div class="subh">Opcionales</div>
       ${o.map(e=>lift(e,true)).join('')}`:''}
   </div>`;
 }
-function cargasTabla(){
-  if(!sesiones().length) return '<div class="mut">Aún no hay sesiones registradas. Al guardar la primera aparecerá aquí la progresión de cada barra.</div>';
-  return `<table><tr><th>Ejercicio</th><th class="n">Inicio</th><th class="n">Ahora</th><th class="n">Δ</th></tr>
-  ${[...new Set(TIPOS.flatMap(t=>S.config[t].map(e=>e.n)).concat(sesiones().flatMap(([,v])=>v.sesion.ej.map(e=>e.n))))].map(n=>{
-    const ini=pesoInicial(n), ah=pesoActual(n);
-    return `<tr><td>${esc(n)}</td><td class="n mut">${fmt(ini)}</td><td class="n"><b>${fmt(ah)}</b></td><td class="n ${ah>=ini?'up':'down'}">${ah-ini>0?'+':''}${fmt(ah-ini)}</td></tr>`;
-  }).join('')}</table>`;
-}
+
 
 /* ---------- objetivo ---------- */
 function objetivoDatos(){
@@ -574,30 +583,76 @@ function objetivoDatos(){
   return {act,rest,semanas,ritmoNec,ritmoAct,prog,o};
 }
 
+/* ---------- escalas de la báscula (RENPHO) ---------- */
+function escalas(){
+  const h=(S.config.altura||183)/100, h2=h*h;
+  return {
+    peso:{cortes:[18.5*h2,25*h2,30*h2],zonas:['Bajo peso','Normal','Sobrepeso','Obesidad'],dec:1,un:'kg'},
+    imc:{cortes:[18.5,25,30],zonas:['Bajo peso','Normal','Sobrepeso','Obesidad'],dec:1,un:''},
+    grasa:{cortes:[6,13,17,25],zonas:['Esencial','Atletas','Fitness','Aceptable','Obesidad'],dec:1,un:'%'},
+    agua:{cortes:[50,65],zonas:['Bajo','Normal','Alto'],dec:1,un:'%'},
+    proteina:{cortes:[16,18],zonas:['Insuficiente','Estándar','Adecuado'],dec:1,un:'%'},
+    subcutanea:{cortes:[8.6,16.7],zonas:['Bajo','Estándar','Alto'],dec:1,un:'%'},
+    visceral:{cortes:[6,11,15],zonas:['Bueno','Aceptable','Alto','Excesivo'],dec:0,un:''},
+    musculoEsq:{cortes:[49,59],zonas:['Bajo','Estándar','Alto'],dec:1,un:'%'},
+    masaOsea:{cortes:[2.81,4.69],zonas:['Bajo la media','Media','Sobre la media'],dec:2,un:'kg'},
+    bmr:{cortes:[S.config.bmrRef||1887],zonas:['Bajo la media','Sobre la media'],dec:0,un:'kcal'},
+    edadMet:{cortes:[S.config.edad||34],zonas:['Más joven','Más mayor'],dec:0,un:'años'}
+  };
+}
+function posEscala(v,c){
+  const n=c.length+1, ancho=100/n;
+  if(v<c[0]){
+    const prev=c.length>1?(c[1]-c[0]):c[0]*0.35;
+    return Math.max(1,((v-(c[0]-prev))/prev)*ancho);
+  }
+  for(let i=0;i<c.length-1;i++)
+    if(v<c[i+1]) return (i+1+(v-c[i])/(c[i+1]-c[i]))*ancho;
+  const ult=c.length>1?(c[c.length-1]-c[c.length-2]):c[0]*0.35;
+  return Math.min(99,(c.length+Math.min(1,(v-c[c.length-1])/ult))*ancho);
+}
+function zonaDe(v,c){
+  for(let i=0;i<c.length;i++) if(v<c[i]) return i;
+  return c.length;
+}
+function filaEscala(etq,val,esc){
+  if(val==null) return `<div class="mrow"><div class="top"><span>${etq}</span><b class="mut">—</b></div></div>`;
+  const z=zonaDe(val,esc.cortes), pos=posEscala(val,esc.cortes);
+  return `<div class="mrow">
+    <div class="top"><span>${etq}</span><b>${fmt(val,esc.dec)}${esc.un?` <em>${esc.un}</em>`:''}</b></div>
+    <div class="escbar">
+      <em style="left:${pos.toFixed(1)}%"></em>
+      ${esc.zonas.map((x,i)=>`<div class="${i===z?'on':''}"></div>`).join('')}
+    </div>
+    <div class="esclbl">${esc.zonas.map((x,i)=>`<span class="${i===z?'act':''}">${x}</span>`).join('')}</div>
+  </div>`;
+}
+
 /* ---------- peso ---------- */
 function vPeso(){
   const p=ultP(), g=objetivoDatos();
   const c=F_PESO.find(x=>x[0]===selPeso)||F_PESO[0];
-  const grid=[
-    ['Peso','kg',p.peso,1,'peso'],
-    ['IMC','',imc(p),1,null],
-    ['Grasa','%',p.grasa,1,'grasa'],
-    ['M. muscular','kg',p.masaMuscular,1,'masaMuscular'],
-    ['Agua','%',p.agua,1,'agua'],
-    ['Visceral','',p.visceral,0,'visceral'],
-    ['M. esquel.','%',p.musculoEsq,1,'musculoEsq'],
-    ['Proteína','%',p.proteina,1,'proteina'],
-    ['BMR','kcal',p.bmr,0,'bmr'],
-    ['Masa libre grasa','kg',(p.peso!=null&&p.grasa!=null)?p.peso*(1-p.grasa/100):null,1,null]
-  ];
   return `
   <div class="sec">
     <div class="row"><h2 style="margin:0">Actual</h2><span class="mut">${p.fecha?larga(p.fecha):'—'}</span></div>
     <div class="big" style="margin-top:6px">${fmt(p.peso)} <span style="font-size:16px;font-weight:400;color:var(--mut)">kg → objetivo ${fmt(g.o.peso)}</span></div>
     <div class="bar"><i style="width:${g.prog.toFixed(1)}%"></i></div>
-    <div class="stats">
-      ${grid.map(x=>`<div><b>${fmt(x[2],x[3])}</b><span>${x[0]}${x[1]?' '+x[1]:''}${x[4]?deltaHTML(S.peso,x[4],x[3],x[4]==='masaMuscular'||x[4]==='musculoEsq'||x[4]==='agua'||x[4]==='proteina'):''}</span></div>`).join('')}
+    ${(()=>{
+      const E=escalas();
+      return [
+        ['Peso',p.peso,E.peso],['IMC',imc(p),E.imc],['Grasa corporal',p.grasa,E.grasa],
+        ['Grasa visceral',p.visceral,E.visceral],['Grasa subcutánea',p.subcutanea,E.subcutanea],
+        ['Músculo esquelético',p.musculoEsq,E.musculoEsq],['Masa ósea',p.masaOsea,E.masaOsea],
+        ['Agua corporal',p.agua,E.agua],['Proteína',p.proteina,E.proteina],
+        ['Metabolismo basal',p.bmr,E.bmr],['Edad metabólica',p.edadMet,E.edadMet]
+      ].map(x=>filaEscala(x[0],x[1],x[2])).join('');
+    })()}
+    <div class="stats" style="margin-top:14px">
+      <div><b>${fmt(p.masaMuscular)}</b><span>masa muscular kg${deltaHTML(S.peso,'masaMuscular',1,true)}</span></div>
+      <div><b>${fmt((p.peso!=null&&p.grasa!=null)?p.peso*(1-p.grasa/100):null)}</b><span>masa libre grasa kg</span></div>
+      <div><b>${fmt((p.peso!=null&&p.grasa!=null)?p.peso*p.grasa/100:null)}</b><span>masa grasa kg</span></div>
     </div>
+    <div class="note">Escalas de la báscula. Peso e IMC se calculan con tu altura (${fmt(S.config.altura,0)} cm); las referencias de metabolismo basal y edad metabólica, con tu edad (${fmt(S.config.edad,0)}).</div>
     <div class="note">Faltan ${g.rest==null?'—':fmt(g.rest)} kg en ${Math.max(0,Math.round(g.semanas))} semanas · ${g.ritmoNec==null?'—':fmt(g.ritmoNec,2)} kg/semana necesarios${g.ritmoAct!=null?` · ritmo real ${fmt(g.ritmoAct,2)}`:''}</div>
   </div>
   <div class="sec">
@@ -639,6 +694,7 @@ function vPeso(){
       <div><label for="o_peso">Peso objetivo (kg)</label><input id="o_peso" inputmode="decimal" value="${S.config.objetivo.peso}"></div>
       <div><label for="o_fecha">Fecha límite</label><input id="o_fecha" type="date" value="${S.config.objetivo.fecha}"></div>
       <div><label for="o_alt">Altura (cm)</label><input id="o_alt" inputmode="decimal" value="${S.config.altura}"></div>
+      <div><label for="o_edad">Edad</label><input id="o_edad" inputmode="numeric" value="${S.config.edad}"></div>
     </div>
     <button class="btn alt" onclick="guardarObjetivo()">Guardar</button>
   </div>`;
@@ -655,9 +711,10 @@ async function borrarPeso(f){
   S.peso=S.peso.filter(r=>r.fecha!==f); await save(); render(); toast('Pesada borrada');
 }
 async function guardarObjetivo(){
-  const p=num(document.getElementById('o_peso').value), f=document.getElementById('o_fecha').value, a=num(document.getElementById('o_alt').value);
+  const p=num(document.getElementById('o_peso').value), f=document.getElementById('o_fecha').value, a=num(document.getElementById('o_alt').value), ed=num(document.getElementById('o_edad').value);
   if(p!=null) S.config.objetivo={peso:p,fecha:f||S.config.objetivo.fecha};
   if(a!=null) S.config.altura=a;
+  if(ed!=null&&ed>0) S.config.edad=Math.round(ed);
   await save(); render(); toast('Objetivo actualizado');
 }
 
@@ -791,6 +848,7 @@ function vMedidas(){
     <button class="btn ghost" onclick="exportar()">Descargar archivo .json</button>
     <button class="btn ghost" onclick="document.getElementById('imp').click()">Cargar archivo .json</button>
     <input id="imp" type="file" accept=".json" class="hide" onchange="importar(this)">
+    <div class="note" style="text-align:center;margin-top:14px">${VERSION}</div>
   </div>`;
 }
 async function guardarMedida(){
@@ -808,18 +866,41 @@ async function borrarMedida(f){
 function vEntreno(){
   if(!draft){
     const t=proximoTipo();
-    draft=nuevoDraft(t);
+    draft=nuevoDraft(t,hoy());
   }
-  const yaHoy=S.dias[hoy()]&&S.dias[hoy()].sesion;
+  const yaEseDia=S.dias[hoy()]&&S.dias[hoy()].sesion;
   return `
   <div class="seg">
     ${TIPOS.map(t=>`<button aria-pressed="${draft.tipo===t}" onclick="cambiarTipo('${t}')">${t}</button>`).join('')}
     <button aria-pressed="${draft.tipo==='D'}" onclick="generarD()">D aleatoria</button>
   </div>
   ${draft.tipo==='D'?`<div class="row" style="margin-bottom:12px"><span class="mut">Sorteo: 1 empuje + 1 tirón + 1 pierna</span><button class="mini" onclick="generarD()">Volver a sortear</button></div>`:''}
-  ${yaHoy?`<div class="note" style="margin-bottom:10px">Hoy ya hay una sesión ${yaHoy.tipo} guardada. Si guardas otra, la sustituirá.</div>`:''}
-  ${draft.ej.map((e,i)=>`
-    ${e.opt&&!draft.ej[i-1]?.opt?'<div class="subh" style="margin-top:14px">Opcionales · sáltalos si vas justo</div>':''}
+  ${yaEseDia?`<div class="note" style="margin-bottom:10px">Hoy ya hay una sesión ${yaEseDia.tipo} guardada. Al guardar podrás elegir otra fecha.</div>`:''}
+  <div class="bloque"><h3>EJERCICIOS BÁSICOS</h3><span>${draft.ej.filter(e=>!e.opt).length}</span></div>
+  ${draft.ej.map((e,i)=>e.opt?'':filaEj(e,i)).join('')}
+  <button class="addej" onclick="addEjDraft(false)">+ Añadir ejercicio básico</button>
+  <div class="bloque"><h3>EJERCICIOS ACCESORIOS</h3><span>${draft.ej.filter(e=>e.opt).length} · opcionales</span></div>
+  ${draft.ej.filter(e=>e.opt).length?draft.ej.map((e,i)=>e.opt?filaEj(e,i):'').join(''):'<div class="mut" style="padding:10px 0">Ninguno. Son opcionales.</div>'}
+  <button class="addej" onclick="addEjDraft(true)">+ Añadir ejercicio accesorio</button>
+  <button class="btn" onclick="pedirFecha()">Guardar sesión ${draft.tipo}</button>
+  ${draft.confirm?dialogoFecha():''}
+  <div class="row" style="margin-top:14px"><span class="mut">Cardio de hoy</span><span class="mut">${(w=>`${w.ses}/3 sesiones · ${w.cardio} cardio esta semana`)(semanaActual())}</span></div>
+  <div class="seg" style="margin-top:6px">
+    ${Object.keys(CARDIO).map(t=>`<button aria-pressed="${(S.dias[hoy()]||{}).cardio===t}" onclick="cardio('${t}')">${CARDIO[t]}</button>`).join('')}
+  </div>
+  <div class="sec">
+    <details${draft.abrirEditor?' open':''}><summary>Editar la rutina guardada</summary>
+      ${TIPOS.map(t=>editorTipo(t)).join('')}
+      <div class="note">Esto cambia la plantilla de cada sesión. Los cambios de arriba solo afectan al entreno de hoy.</div>
+    </details>
+  </div>
+  <div class="sec">
+    <h2>Últimas sesiones</h2>
+    ${historialSesiones()}
+  </div>`;
+}
+function filaEj(e,i){
+  return `
     <div class="ex">
       <div class="row">${selectSesion(i,e)}<span class="mut">${e.reps.length}×${e.obj}</span></div>
       <div class="wt">
@@ -834,24 +915,25 @@ function vEntreno(){
           ? `<input class="set" inputmode="numeric" value="${r}" onchange="setReps(${i},${j},this.value)">`
           : `<button class="set ${r>=e.obj?'full':(r>0?'part':'zero')}" onclick="tocar(${i},${j})">${r}</button>`
         ).join('')}
+        ${e.reps.length>1?`<button class="set delset" onclick="quitarSerie(${i})" title="Quitar serie">−</button>`:''}
+        <button class="set addset" onclick="addSerie(${i})" title="Añadir serie">+</button>
       </div>
       ${e.edit?'<div class="note" style="margin-top:6px">Escribe las repeticiones reales de cada serie. Puedes poner más del objetivo.</div>':''}
-    </div>`).join('')}
-  <button class="btn" onclick="guardarSesion()">Guardar sesión ${draft.tipo}</button>
-  <div class="row" style="margin-top:14px"><span class="mut">Cardio de hoy</span><span class="mut">${(w=>`${w.ses}/3 sesiones · ${w.cardio} cardio esta semana`)(semanaActual())}</span></div>
-  <div class="seg" style="margin-top:6px">
-    ${Object.keys(CARDIO).map(t=>`<button aria-pressed="${(S.dias[hoy()]||{}).cardio===t}" onclick="cardio('${t}')">${CARDIO[t]}</button>`).join('')}
-  </div>
-  <div class="sec">
-    <details${draft.abrirEditor?' open':''}><summary>Editar ejercicios</summary>
-      ${TIPOS.map(t=>editorTipo(t)).join('')}
-      <div class="note">Cambiar el nombre de un ejercicio lo trata como nuevo: parte del peso inicial que pongas aquí, no hereda el histórico del anterior.</div>
-    </details>
-  </div>
-  <div class="sec">
-    <h2>Últimas sesiones</h2>
-    ${historialSesiones()}
-  </div>`;
+      <div class="row" style="margin-top:8px"><span></span><button class="quitar" onclick="quitarEjDraft(${i})">Quitar ejercicio</button></div>
+    </div>`;
+}
+function addEjDraft(opt){
+  const usados=draft.ej.map(e=>e.n);
+  const pool=CAT.filter(c=>opt?c.g==='accesorio':c.g!=='accesorio');
+  const c=pool.find(x=>!usados.includes(x.n))||pool[0];
+  const nser=opt?3:5;
+  draft.ej.push({n:c.n,w:pesoActual(c.n),obj:c.r,reps:Array(nser).fill(c.r),edit:false,opt:!!opt,lado:false});
+  render();
+}
+function quitarEjDraft(i){
+  const e=draft.ej[i];
+  if(!e.opt&&draft.ej.filter(x=>!x.opt).length<=1){toast('Debe quedar al menos un ejercicio básico');return;}
+  draft.ej.splice(i,1); render();
 }
 function selectEj(t,i,actual){
   const clave=t+':'+i;
@@ -928,16 +1010,42 @@ function selectSesion(i,e){
   </select>`;
 }
 function cambiaEj(i,n){
-  const c=catDe(n)||{s:draft.ej[i].reps.length,r:draft.ej[i].obj};
-  draft.ej[i]={n,w:pesoActual(n),obj:c.r,reps:Array(c.s).fill(c.r),edit:false,opt:draft.ej[i].opt,lado:false};
+  const prev=draft.ej[i], c=catDe(n)||{s:prev.reps.length,r:prev.obj};
+  draft.ej[i]={n,w:pesoActual(n),obj:c.r,reps:Array(prev.reps.length).fill(c.r),edit:false,opt:prev.opt,lado:false};
   render();
 }
-function nuevoDraft(t){
-  return {tipo:t,ej:S.config[t].map(e=>({n:e.n,w:pesoActual(e.n),obj:e.r,reps:Array(e.s).fill(e.r),edit:false,opt:!!e.opt}))};
+function nuevoDraft(t,fecha){
+  return {tipo:t,fecha:fecha||hoy(),ej:S.config[t].map(e=>({n:e.n,w:pesoActual(e.n),obj:e.r,reps:Array(e.s).fill(e.r),edit:false,opt:!!e.opt}))};
 }
-function cambiarTipo(t){ const ab=draft&&draft.abrirEditor; draft=nuevoDraft(t); draft.abrirEditor=ab; render(); }
+function cambiarTipo(t){ const ab=draft&&draft.abrirEditor, f=draft&&draft.fecha; draft=nuevoDraft(t,f); draft.abrirEditor=ab; render(); }
+function setFecha(v){ if(!v)return; draft.fecha=v>hoy()?hoy():v; render(); }
+function pedirFecha(){ draft.confirm=true; draft.fecha=hoy(); draft.otra=false; render(); }
+function cerrarFecha(){ draft.confirm=false; render(); }
+function eligeHoy(){ draft.otra=false; draft.fecha=hoy(); render(); }
+function eligeOtra(){ draft.otra=true; render(); }
+function ayer(){ const d=new Date(); d.setDate(d.getDate()-1); return iso(d); }
+function dialogoFecha(){
+  const ya=S.dias[draft.fecha]&&S.dias[draft.fecha].sesion;
+  return `<div class="modal" onclick="if(event.target===this)cerrarFecha()">
+    <div class="caja">
+      <h3>¿Cuándo hiciste la sesión ${draft.tipo}?</h3>
+      <div class="mut">Se guardará con la fecha que elijas.</div>
+      <button class="opcf" aria-pressed="${!draft.otra}" onclick="eligeHoy()">
+        Hoy<small>${larga(hoy())}</small>
+      </button>
+      <button class="opcf" aria-pressed="${draft.otra}" onclick="eligeOtra()">
+        Otra fecha<small>${draft.otra?larga(draft.fecha):'elige un día anterior'}</small>
+      </button>
+      ${draft.otra?`<input type="date" value="${draft.fecha}" max="${hoy()}" onchange="setFecha(this.value)">
+        <div class="chips" style="margin-top:8px"><button onclick="setFecha('${ayer()}')">Ayer</button></div>`:''}
+      ${ya?`<div class="note">Ya hay una sesión ${ya.tipo} el ${larga(draft.fecha)}. Se sustituirá.</div>`:''}
+      <button class="btn" onclick="guardarSesion()">Guardar</button>
+      <button class="btn ghost" onclick="cerrarFecha()">Cancelar</button>
+    </div>
+  </div>`;
+}
 function generarD(){
-  const ab=draft&&draft.abrirEditor;
+  const ab=draft&&draft.abrirEditor, fPrev=draft&&draft.fecha;
   const previos=(draft&&draft.tipo==='D')?draft.ej.map(e=>e.n):[];
   const sortea=g=>{
     const op=CAT.filter(c=>c.g===g);
@@ -945,7 +1053,7 @@ function generarD(){
     const pool=libres.length?libres:op;
     return pool[Math.floor(Math.random()*pool.length)];
   };
-  draft={tipo:'D',abrirEditor:ab,ej:['push','pull','pierna'].map(g=>{
+  draft={tipo:'D',abrirEditor:ab,fecha:fPrev||hoy(),ej:['push','pull','pierna'].map(g=>{
     const c=sortea(g);
     return {n:c.n,w:pesoActual(c.n),obj:c.r,reps:Array(c.s).fill(c.r),edit:false,opt:false};
   })};
@@ -961,6 +1069,8 @@ function modoLado(i){draft.ej[i].lado=!draft.ej[i].lado;render();}
 function tocar(i,j){const e=draft.ej[i];e.reps[j]=e.reps[j]<=0?e.obj:e.reps[j]-1;render();}
 function setReps(i,j,v){const n=num(v);draft.ej[i].reps[j]=n==null?0:Math.max(0,Math.round(n));render();}
 function modoEdit(i){draft.ej[i].edit=!draft.ej[i].edit;render();}
+function addSerie(i){const e=draft.ej[i];if(e.reps.length>=10){toast('Máximo 10 series');return;}e.reps.push(e.obj);render();}
+function quitarSerie(i){const e=draft.ej[i];if(e.reps.length<=1)return;e.reps.pop();render();}
 async function guardarSesion(){
   const ej=draft.ej.map(e=>{
     const ok=e.reps.every(r=>r>=e.obj);
@@ -970,12 +1080,12 @@ async function guardarSesion(){
     if(fallos>=3) sig=Math.round((e.w*0.9)/2.5)*2.5;
     return {n:e.n,w:e.w,reps:e.reps.slice(),ok,fallos,sig};
   });
-  const k=hoy(), tipo=draft.tipo;
+  const k=draft.fecha||hoy(), tipo=draft.tipo;
   S.dias[k]=Object.assign({},S.dias[k],{sesion:{tipo,ej}});
   await save();
   const sub=ej.filter(e=>e.sig>e.w).length, baj=ej.filter(e=>e.sig<e.w).length;
   draft=null; view='inicio'; render();
-  toast(`Sesión ${tipo} · ${sub} subida(s)${baj?`, ${baj} descarga(s)`:''}`);
+  toast(`Sesión ${tipo}${k!==hoy()?' ('+larga(k)+')':''} · ${sub} subida(s)${baj?`, ${baj} descarga(s)`:''}`);
 }
 function fallosPrevios(tipo,n){
   const s=sesiones().filter(([,v])=>v.sesion.tipo===tipo);
@@ -1001,28 +1111,29 @@ async function cardio(t,k){
 }
 
 /* ---------- nivel de fuerza ---------- */
-const NIV=['Principiante','Novato','Intermedio','Avanzado','Élite'];
+const NIV=["Principiante","Novato","Intermedio","Avanzado"];
 /* t:'ratio' → múltiplos del peso corporal · t:'reps' → repeticiones por peso corporal
    src:'SL' = tabla de Strength Level aportada · src:'est' = estimación sin verificar */
 const STD_DEF={
-  'Press banca plano':{t:'ratio',src:'SL',v:[0.50,1.00,1.25,1.50,2.00]},
-  'Press banca inclinado':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50,1.75]},
-  'Press militar':{t:'ratio',src:'SL',v:[0.35,0.55,0.80,1.05,1.35]},
-  'Remo en barra':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50,1.75]},
-  'Sentadilla':{t:'ratio',src:'SL',v:[0.75,1.25,1.75,2.25,2.75]},
-  'Peso muerto':{t:'ratio',src:'SL',v:[1.00,1.50,2.00,2.50,3.25]},
-  'Dominada':{t:'reps',src:'SL',tab:{50:[0.5,6,14,24,34],55:[0.5,7,14,24,34],60:[0.5,7,14,23,33],65:[0.5,7,14,23,32],70:[0.5,7,14,22,31],75:[0.5,7,13,21,30],80:[1,7,13,21,29],85:[1,7,13,20,28],90:[1,7,12,19,27],95:[1,7,12,19,26],100:[0.5,6,11,18,25],105:[0.5,6,11,18,24],110:[0.5,6,10,17,23],115:[0.5,6,10,16,23],120:[0.5,5,10,16,22],125:[0.5,5,10,15,21],130:[0.5,5,9,14,20],135:[0.5,4,9,14,20],140:[0.5,4,9,13,19]}},
-  'Flexiones':{t:'reps',src:'SL',tab:{50:[1,18,42,70,102],55:[2,19,42,69,99],60:[4,19,41,67,95],65:[4,20,41,65,92],70:[5,20,40,64,89],75:[6,20,39,62,87],80:[6,20,38,60,84],85:[6,20,38,59,81],90:[6,19,37,57,79],95:[6,19,36,56,77],100:[6,19,35,54,74]}},
-  'Remo barra T':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50,2.00]},
-  'Fondos':{t:'reps',src:'SL',tab:{50:[0.5,8,19,33,47],55:[0.5,9,20,33,47],60:[1,10,20,33,46],65:[2,10,20,32,45],70:[2,10,20,32,44],75:[3,10,20,31,43],80:[3,10,20,31,42],85:[4,10,20,30,41],90:[4,10,19,29,40],95:[4,10,19,29,39],100:[4,10,19,28,38],105:[4,10,18,27,37],110:[4,10,18,27,36],115:[4,10,17,26,35],120:[4,10,17,25,34],125:[4,9,17,25,33],130:[4,9,16,24,32],135:[4,9,16,24,32],140:[3,9,15,23,31]}},
-  'Hip thrust':{t:'ratio',src:'SL',v:[0.50,1.25,1.75,2.75,3.75]},
-  'Zancadas':{t:'ratio',src:'SL',v:[0.10,0.20,0.40,0.60,0.80],nota:'Tabla de zancadas con mancuernas: el peso es el de UNA mancuerna, no el total de las dos. Registra la sesión con ese mismo criterio.'}
+  'Press banca plano':{t:'ratio',src:'mío',v:[0.50,0.75,1.00,1.50]},
+  'Press banca inclinado':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50]},
+  'Press militar':{t:'ratio',src:'SL',v:[0.35,0.55,0.80,1.05]},
+  'Remo en barra':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50]},
+  'Sentadilla':{t:'ratio',src:'SL',v:[0.75,1.25,1.75,2.25]},
+  'Peso muerto':{t:'ratio',src:'SL',v:[1.00,1.50,2.00,2.50]},
+  'Dominada':{t:'reps',src:'SL',tab:{50:[0.5,6,14,24],55:[0.5,7,14,24],60:[0.5,7,14,23],65:[0.5,7,14,23],70:[0.5,7,14,22],75:[0.5,7,13,21],80:[1,7,13,21],85:[1,7,13,20],90:[1,7,12,19],95:[1,7,12,19],100:[0.5,6,11,18],105:[0.5,6,11,18],110:[0.5,6,10,17],115:[0.5,6,10,16],120:[0.5,5,10,16],125:[0.5,5,10,15],130:[0.5,5,9,14],135:[0.5,4,9,14],140:[0.5,4,9,13]}},
+  'Flexiones':{t:'reps',src:'SL',tab:{50:[1,18,42,70],55:[2,19,42,69],60:[4,19,41,67],65:[4,20,41,65],70:[5,20,40,64],75:[6,20,39,62],80:[6,20,38,60],85:[6,20,38,59],90:[6,19,37,57],95:[6,19,36,56],100:[6,19,35,54]}},
+  'Remo barra T':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50]},
+  'Fondos':{t:'reps',src:'SL',tab:{50:[0.5,8,19,33],55:[0.5,9,20,33],60:[1,10,20,33],65:[2,10,20,32],70:[2,10,20,32],75:[3,10,20,31],80:[3,10,20,31],85:[4,10,20,30],90:[4,10,19,29],95:[4,10,19,29],100:[4,10,19,28],105:[4,10,18,27],110:[4,10,18,27],115:[4,10,17,26],120:[4,10,17,25],125:[4,9,17,25],130:[4,9,16,24],135:[4,9,16,24],140:[3,9,15,23]}},
+  'Hip thrust':{t:'ratio',src:'SL',v:[0.50,1.25,1.75,2.75]},
+  'Zancadas':{t:'ratio',src:'SL',v:[0.10,0.20,0.40,0.60],nota:'Tabla de zancadas con mancuernas: el peso es el de UNA mancuerna, no el total de las dos. Registra la sesión con ese mismo criterio.'}
 };
+
 function stds(){
   const out={};
   Object.keys(STD_DEF).forEach(k=>{
     const d=STD_DEF[k], u=(S.config.std||{})[k];
-    out[k]=u?Object.assign({},d,{v:u,src:'mío'}):d;
+    out[k]=u?Object.assign({},d,{v:u.slice(0,d.v?d.v.length:u.length),src:'mío'}):d;
   });
   return out;
 }
@@ -1053,6 +1164,14 @@ function marcaDe(n){
   const c=catDe(n); if(!c) return null;
   return {v:d.t==='reps'?c.r:epley(cargaTotal(n,pesoActual(n)),c.r), f:null, estim:true};
 }
+function seriePeso(n){
+  const out=[];
+  sesiones().forEach(([f,v])=>{
+    const e=v.sesion.ej.find(x=>x.n===n); if(!e) return;
+    out.push({f,v:e.w,reps:e.reps,ok:e.ok});
+  });
+  return out;
+}
 function serieMarca(n){
   const d=stds()[n], out=[];
   sesiones().forEach(([f,v])=>{
@@ -1063,9 +1182,10 @@ function serieMarca(n){
   return out;
 }
 function nivelDe(val,u){
-  if(val<u[0]) return {i:-1,pct:Math.max(0,val/u[0])*20};
-  for(let i=0;i<4;i++) if(val<u[i+1]) return {i,pct:(i+(val-u[i])/(u[i+1]-u[i]))*20};
-  return {i:4,pct:100};
+  const n=u.length, paso=100/n;
+  if(val<u[0]) return {i:-1,pct:Math.max(0,val/u[0])*paso};
+  for(let i=0;i<n-1;i++) if(val<u[i+1]) return {i,pct:(i+(val-u[i])/(u[i+1]-u[i]))*paso};
+  return {i:n-1,pct:100};
 }
 function selFzaSet(n){selFza=n;render();}
 function vFuerza(){
@@ -1075,6 +1195,7 @@ function vFuerza(){
   const n=selFza, d=T[n], u=umbrales(n), m=marcaDe(n);
   const reps=d.t==='reps', un=reps?'reps':'kg', dec=reps?0:0;
   const lados=!reps&&barDe(n)>0&&!esMan(n);
+  const N=d.niv||NIV, paso=100/N.length;
   const lv=m?nivelDe(m.v,u):null;
   const pts=serieMarca(n);
   const fuente={SL:'Strength Level',est:'estimación sin verificar','mío':'editado por ti'}[d.src];
@@ -1083,16 +1204,19 @@ function vFuerza(){
     <div class="chips">${nombres.map(x=>`<button aria-pressed="${x===n}" onclick="selFzaSet('${esc(x)}')">${esc(x)}</button>`).join('')}</div>
     <div class="row" style="margin-top:6px"><div class="big">${m?fmt(m.v,dec):'—'} ${un}</div><div class="mut">${reps?'mejor serie':'1RM'} ${m&&m.estim?'estimado':'registrado'}</div></div>
     ${(!reps&&m&&porLado(n,m.v)!=null)?`<div class="mut">= ${fmt(porLado(n,m.v))} kg ${esUna(n)?'en discos':'por lado'} · ${desglose(n,m.v)}</div>`:''}
-    <div class="row"><span class="mut">${reps?`a ${fmt(bw)} kg de peso corporal`:`${fmt(m?m.v/bw:null,2)} × peso corporal (${fmt(bw)} kg)`}</span><b>${lv?(lv.i<0?'Bajo principiante':NIV[lv.i]):'—'}</b></div>
-    <div class="niv">${NIV.map((x,i)=>`<div class="${lv&&lv.i>=i?'hecho':''}">${lv&&Math.min(4,Math.floor(lv.pct/20))===i?`<span class="marca" style="left:${((lv.pct%20)/20*100).toFixed(0)}%"></span>`:''}</div>`).join('')}</div>
-    <div class="nivlbl">${NIV.map((x,i)=>`<span class="${lv&&lv.i===i?'act':''}">${x}</span>`).join('')}</div>
+    <div class="row"><span class="mut">${reps?`a ${fmt(bw)} kg de peso corporal`:`${fmt(m?m.v/bw:null,2)} × peso corporal (${fmt(bw)} kg)`}</span><b>${lv?(lv.i<0?'Bajo '+N[0].toLowerCase():N[lv.i]):'—'}</b></div>
+    <div class="escbar">
+      ${lv?`<em style="left:${Math.max(0,Math.min(100,lv.pct)).toFixed(1)}%"></em>`:''}
+      ${N.map(()=>'<div></div>').join('')}
+    </div>
+    <div class="esclbl">${N.map((x,i)=>`<span class="${lv&&lv.i===i?'act':''}">${x}</span>`).join('')}</div>
     <div class="note">Estándar: ${fuente}. ${reps?'Se compara tu mejor serie a peso corporal.':(esMan(n)?`El peso es el de una sola mancuerna e incluye sus ${fmt(barDe(n))} kg de barra.`:(esUna(n)?`Landmine: se cuentan los discos más ≈${fmt(barDe(n))} kg de la barra, la mitad de la olímpica por el anclaje.`:(barDe(n)>0?`El peso incluye la barra de ${fmt(barDe(n))} kg.`:'El peso es el lastre añadido.')))}${m&&m.estim?' Sin series registradas todavía: la marca sale de tu peso de trabajo.':''}${d.nota?' '+d.nota:''}</div>
   </div>
   <div class="sec">
     <h2>Objetivos a tu peso</h2>
     <table>
       <tr><th>Nivel</th><th class="n">${reps?'Ref.':'Ratio'}</th><th class="n">${reps?'Reps':'1RM total'}</th>${lados?`<th class="n">${esUna(n)?'Discos':'Por lado'}</th>`:''}<th class="n">Falta</th></tr>
-      ${NIV.map((x,i)=>{
+      ${N.map((x,i)=>{
         const meta=u[i], ok=m&&m.v>=meta;
         const ref=reps?'—':fmt(d.v[i],2)+'×';
         const pl=lados?porLado(n,meta):null;
@@ -1112,7 +1236,7 @@ function vFuerza(){
       const r1=m?m.v/bw:null, r2=m?m.v/bo:null;
       return `<table>
         <tr><th>Nivel</th><th class="n">Hoy · ${fmt(bw)} kg</th><th class="n">A ${fmt(bo)} kg</th>${lados?`<th class="n">${esUna(n)?'Discos':'Por lado'}</th>`:''}<th class="n">Δ</th></tr>
-        ${NIV.map((x,i)=>{
+        ${N.map((x,i)=>{
           const a=u[i], b=uo[i], pl=lados?porLado(n,b):null;
           return `<tr><td>${x}</td><td class="n mut">${a<1?'<1':fmt(a,dec)}</td><td class="n"><b>${b<1?'<1':fmt(b,dec)}</b></td>${lados?`<td class="n">${pl==null?'—':fmt(pl)}</td>`:''}<td class="n ${b<a?'down':'up'}">${b>a?'+':''}${fmt(b-a,dec)}</td></tr>`;
         }).join('')}
@@ -1122,21 +1246,26 @@ function vFuerza(){
     })()}
   </div>
   <div class="sec">
-    <h2>${reps?'Repeticiones':'1RM estimado'} en el tiempo</h2>
-    ${graficaFza(pts,u,dec)}
+    <h2>${reps?'Repeticiones por sesión':'Peso usado en cada sesión'}</h2>
+    ${histSesionesEj(n,reps)}
+  </div>
+  <div class="sec">
+    <h2>${reps?'Mejor serie':'1RM estimado'} en el tiempo</h2>
+    ${graficaFza(pts,u,dec,N)}
   </div>
   <div class="sec">
     <details><summary>Editar estándares</summary>
       <div class="note" style="margin-top:6px">Ratios sobre peso corporal, todos de Strength Level. Los de repeticiones (dominadas, flexiones y fondos) usan tabla por peso corporal y no se editan aquí.</div>
       ${nombres.filter(x=>T[x].t==='ratio').map(x=>`
         <div style="margin-top:12px"><b style="font-size:13px">${esc(x)}</b> <span class="mut">${T[x].src==='SL'?'Strength Level':(T[x].src==='est'?'estimado':'tuyo')}</span></div>
-        <div class="est" style="grid-template-columns:repeat(5,1fr)">
-          ${NIV.map((L,i)=>`<div><label>${L.slice(0,4)}.</label><input inputmode="decimal" value="${T[x].v[i]}" onchange="setStd('${esc(x)}',${i},this.value)"></div>`).join('')}
+        <div class="est" style="grid-template-columns:repeat(${(T[x].niv||NIV).length},1fr)">
+          ${(T[x].niv||NIV).map((L,i)=>`<div><label>${L.slice(0,4)}.</label><input inputmode="decimal" value="${T[x].v[i]}" onchange="setStd('${esc(x)}',${i},this.value)"></div>`).join('')}
         </div>`).join('')}
     </details>
   </div>`;
 }
-function graficaFza(pts,u,dec){
+function graficaFza(pts,u,dec,N){
+  N=N||NIV;
   if(pts.length<2) return `<div class="mut">Con dos sesiones registradas de este ejercicio aparecerá la curva con las bandas de nivel.</div>`;
   const W=320,H=170,L=10,R=12,Tp=16,B=22;
   const ys=pts.map(p=>p.v);
@@ -1146,12 +1275,28 @@ function graficaFza(pts,u,dec){
   const linea=pts.map((p,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(p.v).toFixed(1)}`).join(' ');
   const last=pts.length-1;
   return `<svg class="g" viewBox="0 0 ${W} ${H}" role="img">
-    ${u.map((r,i)=>{const y=Y(r); return (y>Tp&&y<H-B)?`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="var(--rule)" stroke-dasharray="3 3"/><text x="${L+2}" y="${(y-3).toFixed(1)}" font-size="9" fill="var(--mut)">${NIV[i]}</text>`:'';}).join('')}
+    ${u.map((r,i)=>{const y=Y(r); return (y>Tp&&y<H-B)?`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="var(--rule)" stroke-dasharray="3 3"/><text x="${L+2}" y="${(y-3).toFixed(1)}" font-size="9" fill="var(--mut)">${N[i]}</text>`:'';}).join('')}
     <path d="${linea}" fill="none" stroke="var(--ink)" stroke-width="2"/>
     ${pts.map((p,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
       ${(i===0||i===last)?`<text x="${X(i).toFixed(1)}" y="${H-8}" text-anchor="${i?'end':'start'}" font-size="9" fill="var(--mut)">${corta(p.f)}</text>`:''}`).join('')}
   </svg>
   <div class="note">De ${fmt(pts[0].v,dec)} a ${fmt(pts[last].v,dec)} en ${pts.length} sesiones registradas.</div>`;
+}
+function histSesionesEj(n,reps){
+  const w=seriePeso(n);
+  if(!w.length) return '<div class="mut">Aún no has registrado ninguna sesión con este ejercicio. En cuanto guardes la primera aparecerá aquí su progresión.</div>';
+  const pts=w.map(x=>({f:x.f,v:reps?Math.max(...x.reps):x.v}));
+  const b=barDe(n), lado=!reps&&b>0&&!esMan(n);
+  return `${grafica(pts,reps?'reps':'kg',reps?0:1,reps?'Mejor serie':'Peso de trabajo')}
+  <table style="margin-top:10px">
+    <tr><th>Fecha</th><th class="n">${reps?'Reps':'Peso'}</th>${lado?`<th class="n">${esUna(n)?'Discos':'Por lado'}</th>`:''}<th class="n">Series</th></tr>
+    ${w.slice().reverse().map(x=>`<tr>
+      <td>${larga(x.f)}</td>
+      <td class="n"><b>${reps?Math.max(...x.reps):fmt(x.v)}</b></td>
+      ${lado?`<td class="n mut">${porLado(n,x.v)==null?'—':fmt(porLado(n,x.v))}</td>`:''}
+      <td class="n ${x.ok?'':'down'}">${x.reps.join('·')}</td>
+    </tr>`).join('')}
+  </table>`;
 }
 async function setStd(n,i,v){
   const x=num(v); if(x==null||x<=0){render();return;}
