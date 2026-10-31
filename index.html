@@ -120,6 +120,12 @@
   .grupo ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule)}
   .grupo li{display:flex;justify-content:space-between;font-size:14px;padding:6px 0;border-bottom:1px solid var(--grid)}
   .grupo li span{color:var(--mut);font-size:12px}
+  .card .erow{display:flex;gap:6px;align-items:center;padding:5px 0;border-bottom:1px solid var(--grid)}
+  .card .erow:last-of-type{border-bottom:0}
+  .card .erow span{flex:1;font-size:14px}
+  .card .erow select{flex:1;font:inherit;font-size:14px;padding:5px 6px;border:1px solid var(--rule);background:var(--paper);-webkit-appearance:none;appearance:none}
+  .card .arr{width:28px;height:28px;border:1px solid var(--rule);background:transparent;font-size:14px;padding:0;line-height:1}
+  .card .arr:active{background:var(--ink);color:var(--paper)}
   .niv{display:flex;height:26px;border:1.5px solid var(--ink);margin-top:10px}
   .niv div{flex:1;border-right:1px solid var(--ink);position:relative}
   .niv div:last-child{border-right:0}
@@ -133,6 +139,34 @@
     background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);
     background-position:calc(100% - 9px) 12px,calc(100% - 4px) 12px;background-size:5px 5px;background-repeat:no-repeat}
   .opt{color:var(--mut)}
+  .cuerpo{display:grid;grid-template-columns:1fr 112px 1fr;gap:6px;margin-top:12px;align-items:stretch}
+  .mcol{display:flex;flex-direction:column;gap:6px}
+  .mcas{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:left;background:var(--paper);border:1px solid var(--rule);padding:6px 8px;min-height:50px}
+  .mcas span{font-size:12px;color:var(--mut);line-height:1.2}
+  .mcas span i{font-style:normal;font-size:10px}
+  .mcas b{font-size:16px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+  .mcas b small{font-size:10px;font-weight:400;color:var(--mut)}
+  .mcas[aria-pressed="true"]{border:2px solid var(--ink);padding:5px 7px}
+  .mcas[aria-pressed="true"] span{color:var(--ink);font-weight:700}
+  .mfig{display:flex;align-items:center;justify-content:center}
+  .silueta{width:100%;height:auto;max-height:340px}
+  .silueta .cinta{animation:cinta 1.4s ease-in-out infinite}
+  @keyframes cinta{50%{opacity:.55}}
+  @media (prefers-reduced-motion:reduce){.silueta .cinta{animation:none}}
+  .medit{border:1.5px solid var(--ink);padding:12px;margin-top:12px}
+  .mstep{display:flex;align-items:center;gap:6px}
+  .mstep button{flex:0 0 48px;height:48px;border:1.5px solid var(--ink);background:transparent;font-size:22px;line-height:1}
+  .mstep input{flex:1;min-width:0;height:48px;font:inherit;font-size:26px;font-weight:700;text-align:center;border:1.5px solid var(--ink);background:transparent;color:var(--ink)}
+  .mstep span{font-size:13px;color:var(--mut)}
+  .mfecha{width:100%;font:inherit;font-size:15px;padding:8px;border:1px solid var(--rule);background:transparent;margin-top:2px}
+  .tagpk{font:inherit;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:1.5px solid var(--ink);background:transparent;padding:2px 7px;margin-right:6px;cursor:pointer}
+  .tagpk.on{background:var(--ink);color:var(--paper)}
+  .serrow{display:grid;grid-template-columns:104px 1fr 62px;align-items:center;gap:8px;padding:5px 0;font-size:13px}
+  .serbar{position:relative;height:10px;background:var(--rule)}
+  .serbar b{position:absolute;left:0;top:0;bottom:0;opacity:.85}
+  .serzona{position:absolute;top:-1px;bottom:-1px;border-left:2px solid var(--ink);border-right:2px solid var(--ink);background:repeating-linear-gradient(45deg,transparent 0 3px,rgba(128,128,128,.35) 3px 5px);z-index:1}
+  .sernum{text-align:right;font-variant-numeric:tabular-nums}
+  .pkinfo{display:flex;align-items:center;margin:4px 0 2px;font-size:12px;color:var(--mut)}
   .subh{font-size:11px;color:var(--mut);margin:10px 0 2px;padding-top:8px;border-top:1px dashed var(--rule)}
   .bloque{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 2px;padding-bottom:5px;border-bottom:2px solid var(--ink)}
   .bloque h3{margin:0;font-size:13px;font-weight:700;letter-spacing:.02em}
@@ -193,7 +227,7 @@
 
 <script>
 const KEY='tracker_5x5_v1';
-const VERSION='v15 · 11-09-2026 · sin datos personales';
+const VERSION='v22 · 30-10-2026 · series por semana · 1RM pico · +3 ejercicios · pico primero · mesociclo · revisión';
 const DIAS=['L','M','X','J','V','S','D'];
 const MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
@@ -235,10 +269,13 @@ const CAT=[
   {n:'Fondos',g:'push',w:0,inc:2.5,s:5,r:5,bw:1},
   {n:'Flexiones',g:'push',w:0,inc:0,s:4,r:15,bw:0.65},
   {n:'Dominada',g:'pull',w:0,inc:2.5,s:5,r:5,bw:1},
+  {n:'Dominada supina',g:'pull',w:0,inc:2.5,s:3,r:8,bw:1},
   {n:'Remo barra T',g:'pull',w:30,inc:2.5,s:5,r:5,bar:10,una:1},
   {n:'Remo en barra',g:'pull',w:40,inc:2.5,s:5,r:5,bar:20},
+  {n:'Remo mancuerna a una mano',g:'pull',w:20,inc:2,s:3,r:10,bar:2,man:1},
   {n:'Sentadilla',g:'pierna',w:60,inc:5,s:5,r:5,bar:20},
   {n:'Peso muerto',g:'pierna',w:70,inc:5,s:5,r:5,bar:20},
+  {n:'Peso muerto rumano',g:'pierna',w:50,inc:5,s:4,r:8,bar:20},
   {n:'Zancadas',g:'pierna',w:12,inc:2,s:3,r:10,bar:2,man:1},
   {n:'Hip thrust',g:'pierna',w:60,inc:5,s:4,r:8,bar:20},
   {n:'Extensiones tríceps',g:'accesorio',w:10,inc:2,s:3,r:12,bar:2,man:1},
@@ -248,22 +285,24 @@ const CAT=[
   {n:'Curl bíceps barra olímpica',g:'accesorio',w:25,inc:2.5,s:3,r:10,bar:20},
   {n:'Elevaciones frontales',g:'accesorio',w:8,inc:1,s:3,r:12,bar:2,man:1},
   {n:'Elevaciones laterales',g:'accesorio',w:8,inc:1,s:3,r:12,bar:2,man:1},
+  {n:'Encogimientos',g:'accesorio',w:20,inc:2,s:3,r:12,bar:2,man:1},
   {n:'Elevaciones abdominales',g:'accesorio',w:0,inc:0,s:3,r:15}
 ];
 const GRUPOS={push:'Empuje',pull:'Tirón',pierna:'Pierna',accesorio:'Accesorio'};
 const catDe=n=>CAT.find(c=>c.n===n);
-const barDe=n=>{const c=catDe(n);return c&&c.bar!=null?c.bar:0;};
+const barDe=(n,ov)=>{if(ov!=null)return ov;const c=catDe(n);return c&&c.bar!=null?c.bar:0;};
 const esMan=n=>{const c=catDe(n);return !!(c&&c.man);};
 const esUna=n=>{const c=catDe(n);return !!(c&&c.una);};
 const ladosDe=n=>esUna(n)?1:2;
-function porLado(n,total){
-  const b=barDe(n);
+const usaBarra20=n=>{const c=catDe(n);return c&&c.bar===20;};
+function porLado(n,total,ov){
+  const b=barDe(n,ov);
   if(b<=0||esMan(n)) return null;
   const x=(total-b)/ladosDe(n);
   return x<0?null:x;
 }
-function desglose(n,w){
-  const b=barDe(n);
+function desglose(n,w,ov){
+  const b=barDe(n,ov);
   if(esMan(n)) return `por mancuerna, incluye ${fmt(b)} kg de barra`;
   if(b<=0) return catDe(n)&&catDe(n).bw?'peso añadido (lastre)':'';
   const discos=(w-b)/ladosDe(n);
@@ -297,13 +336,13 @@ async function save(){
 function inicial(){
   return {
     config:{
-      A:[{n:'Sentadilla',w:60,inc:5,s:5,r:5},{n:'Press banca plano',w:60,inc:2.5,s:5,r:5},{n:'Remo barra T',w:30,inc:2.5,s:5,r:5},
+      A:[{n:'Press banca plano',w:60,inc:2.5,s:5,r:5},{n:'Sentadilla',w:60,inc:5,s:5,r:5},{n:'Remo barra T',w:30,inc:2.5,s:5,r:5},
          {n:'Elevaciones laterales',w:8,inc:1,s:3,r:12,opt:true},{n:'Extensiones tríceps',w:10,inc:2,s:3,r:12,opt:true}],
-      B:[{n:'Peso muerto',w:70,inc:5,s:5,r:5},{n:'Press militar',w:30,inc:2.5,s:5,r:5},{n:'Dominada',w:0,inc:2.5,s:5,r:5},
+      B:[{n:'Sentadilla',w:60,inc:5,s:5,r:5},{n:'Press militar',w:30,inc:2.5,s:5,r:5},{n:'Remo en barra',w:40,inc:2.5,s:5,r:5},
          {n:'Curl bíceps mancuerna',w:10,inc:2,s:3,r:12,opt:true}],
-      C:[{n:'Fondos',w:0,inc:2.5,s:5,r:5},{n:'Remo en barra',w:40,inc:2.5,s:5,r:5},{n:'Zancadas',w:12,inc:2,s:3,r:10},
+      C:[{n:'Dominada',w:0,inc:2.5,s:5,r:5},{n:'Fondos',w:0,inc:2.5,s:5,r:5},{n:'Zancadas',w:12,inc:2,s:3,r:10},
          {n:'Press banca inclinado',w:40,inc:2.5,s:5,r:5,opt:true}],
-      series:5, reps:5, altura:183, edad:30, bmrRef:1800,
+      series:5, reps:5, altura:175, edad:30, bmrRef:1800,
       objetivo:{peso:75,fecha:'2027-06-30'}
     },
     peso:[],
@@ -316,7 +355,7 @@ function migrar(){
   const d=inicial();
   if(!S.dias) S.dias={};
   if(!S.config.objetivo) S.config.objetivo=d.config.objetivo;
-  if(!S.config.altura) S.config.altura=183;
+  if(!S.config.altura) S.config.altura=175;
   if(!S.config.edad) S.config.edad=30;
   if(!S.config.bmrRef) S.config.bmrRef=1800;
 
@@ -336,8 +375,6 @@ function migrar(){
   Object.values(S.dias).forEach(v=>{ if(v.sesion) v.sesion.ej.forEach(e=>{ if(REN[e.n]) e.n=REN[e.n]; }); });
   if(!S.peso){
     S.peso=(S.medidas||[]).filter(m=>m.peso!=null).map(m=>({fecha:m.fecha,peso:m.peso}));
-    if(!S.peso.some(p=>p.fecha==='2023-07-02')) S.peso.unshift(d.peso[0]);
-    if(!S.peso.some(p=>p.fecha==='2026-09-08')) S.peso.push({fecha:'2026-09-08',peso:93});
     S.peso.sort(ordFecha);
   }
   (S.medidas||[]).forEach(m=>{delete m.peso;});
@@ -361,7 +398,7 @@ function toast(t){const e=document.createElement('div');e.className='flash';e.te
 function ultP(){return S.peso[S.peso.length-1]||{};}
 function ultM(){return S.medidas[S.medidas.length-1]||{};}
 function serie(arr,campo){return arr.filter(r=>r[campo]!=null).map(r=>({f:r.fecha,v:r[campo]}));}
-function imc(p){const h=(S.config.altura||183)/100;return p.peso!=null?p.peso/(h*h):null;}
+function imc(p){const h=(S.config.altura||175)/100;return p.peso!=null?p.peso/(h*h):null;}
 function delta(arr,campo){
   const s=serie(arr,campo); if(s.length<2)return null;
   return s[s.length-1].v-s[s.length-2].v;
@@ -383,6 +420,56 @@ function pesoActual(nombre){
   for(let i=s.length-1;i>=0;i--){const e=s[i][1].sesion.ej.find(x=>x.n===nombre);if(e)return e.sig!=null?e.sig:e.w;}
   for(const t of TIPOS){const e=(S.config[t]||[]).find(x=>x.n===nombre);if(e)return e.w;}
   const c=catDe(nombre); return c?c.w:20;
+}
+/* ---------- pico y secundarios ----------
+   pico: el ejercicio de referencia del día (sentadilla, dominadas o press banca) a 5×5 a tope.
+         Completo → sube el incremento. Falla → repite. Sin descargas automáticas.
+   secundario: el resto de básicos a 3×8–12 con doble progresión: cuando salen 3×12, sube peso. */
+const PICOS=['Sentadilla','Dominada','Press banca plano'];
+const PICO_DIA={2:'Sentadilla',4:'Dominada',0:'Press banca plano'};   /* martes, jueves, domingo */
+const SEC_MIN=8, SEC_MAX=12, SEC_S=3;
+const rnd25=x=>Math.round(x/2.5)*2.5;
+function mejor5x5(n){
+  let m=null;
+  sesiones().forEach(([,v])=>v.sesion.ej.forEach(e=>{if(e.n===n&&!e.sec&&e.reps.length>=5&&e.reps.every(r=>r>=5))m=m==null?e.w:Math.max(m,e.w);}));
+  return m;
+}
+function pesoPico(n){
+  const s=sesiones();
+  for(let i=s.length-1;i>=0;i--){
+    const e=s[i][1].sesion.ej.find(x=>x.n===n&&!x.sec);
+    if(e) return e.sig!=null?e.sig:e.w;
+  }
+  return pesoActual(n);
+}
+function pesoSec(n){
+  const s=sesiones();
+  for(let i=s.length-1;i>=0;i--){
+    const e=s[i][1].sesion.ej.find(x=>x.n===n&&x.sec);
+    if(e) return e.sig!=null?e.sig:e.w;
+  }
+  const m=mejor5x5(n);
+  return m!=null?rnd25(m*0.75):pesoActual(n);
+}
+function eligePico(nombres,fecha){
+  const d=new Date((fecha||hoy())+'T12:00:00').getDay(), porDia=PICO_DIA[d];
+  if(porDia&&nombres.includes(porDia)) return nombres.indexOf(porDia);
+  return nombres.findIndex(n=>PICOS.includes(n));
+}
+function barraPrev(n){
+  const s=sesiones();
+  for(let i=s.length-1;i>=0;i--){const e=s[i][1].sesion.ej.find(x=>x.n===n);if(e)return e.barra;}
+}
+function mkEj(n,pico,prev){
+  const keep=prev?{barra:prev.barra,lado:prev.lado}:(usaBarra20(n)&&barraPrev(n)?{barra:barraPrev(n)}:{});
+  if(pico) return Object.assign({n,w:pesoPico(n),obj:5,reps:[5,5,5,5,5],edit:false,opt:false,lado:false,pico:true},keep);
+  return Object.assign({n,w:pesoSec(n),obj:SEC_MAX,min:SEC_MIN,reps:Array(SEC_S).fill(SEC_MAX),edit:false,opt:false,lado:false,sec:true},keep);
+}
+function togglePico(i){
+  const e=draft.ej[i]; if(e.opt) return;
+  if(e.pico) draft.ej[i]=mkEj(e.n,false,e);
+  else draft.ej=picoPrimero(draft.ej.map((x,j)=>j===i?mkEj(x.n,true,x):(x.pico?mkEj(x.n,false,x):x)));
+  render();
 }
 function incDe(n){
   for(const t of TIPOS){const e=(S.config[t]||[]).find(x=>x.n===n);if(e&&e.inc!=null)return e.inc;}
@@ -407,7 +494,7 @@ function render(){
 }
 
 /* ---------- gráfica ---------- */
-function grafica(pts,unidad,dec,etq){
+function grafica(pts,unidad,dec,etq,masEsMejor){
   if(!pts.length) return `<div class="mut">Sin datos de ${etq.toLowerCase()} todavía.</div>`;
   if(pts.length===1) return `<div class="row"><span class="big">${fmt(pts[0].v,dec)}<span style="font-size:15px;font-weight:400"> ${unidad}</span></span><span class="mut">${larga(pts[0].f)}</span></div>
     <div class="note">Registra otra toma y aquí aparecerá la curva.</div>`;
@@ -435,7 +522,7 @@ function grafica(pts,unidad,dec,etq){
       ${etiqF(i)?`<text x="${X(i).toFixed(1)}" y="${H-8}" text-anchor="${i===0?'start':(i===last?'end':'middle')}" font-size="9" fill="var(--mut)">${corta(p.f)}</text>`:''}
     `).join('')}
   </svg>
-  <div class="note">${etq}: ${fmt(pts[0].v,dec)} → ${fmt(pts[last].v,dec)} ${unidad} · ${pts.length} tomas · máx ${fmt(mx,dec)} / mín ${fmt(mn,dec)} · récord ${fmt(mn,dec)} el ${larga(pts[ys.indexOf(mn)].f)}. Los puntos van igual de separados aunque las fechas no lo estén.</div>`;
+  <div class="note">${etq}: ${fmt(pts[0].v,dec)} → ${fmt(pts[last].v,dec)} ${unidad} · ${pts.length} tomas · máx ${fmt(mx,dec)} / mín ${fmt(mn,dec)} · récord ${fmt(masEsMejor?mx:mn,dec)} el ${larga(pts[ys.indexOf(masEsMejor?mx:mn)].f)}. Los puntos van igual de separados aunque las fechas no lo estén.</div>`;
 }
 function chips(campos,activo,fn){
   return `<div class="chips">${campos.map(c=>`<button aria-pressed="${c[0]===activo}" onclick="${fn}('${c[0]}')">${c[2]}</button>`).join('')}</div>`;
@@ -461,6 +548,8 @@ function vInicio(){
     </div>
   </div>
 
+  ${contadorSeries()}
+
   <div class="sec">
     <h2>Ejercicios disponibles</h2>
     ${['push','pull','pierna','accesorio'].map(g=>`
@@ -473,10 +562,10 @@ function vInicio(){
   <div class="sec">
     <h2>Semana tipo</h2>
     <div class="week">
-      ${[['L','A'],['M','Caminar'],['X','B'],['J','Caminar'],['V','C'],['S','Caminar'],['D','Descanso']].map(d=>
-        `<div class="${TIPOS.includes(d[1])?'on':''}"><span class="mut">${d[0]}</span><b>${d[1]}</b></div>`).join('')}
+      ${[['L'],['M','Sent.'],['X'],['J','Dom.'],['V'],['S'],['D','Banca']].map(d=>
+        `<div class="${d[1]?'on':''}"><span class="mut">${d[0]}</span><b>${d[1]?'★':'·'}</b><span class="mut" style="font-size:10px">${d[1]||'andar'}</span></div>`).join('')}
     </div>
-    <div class="note">La rotación es A → B → C → A, así que la semana siguiente empieza por donde te quedaste. No hay día fijo para cada sesión, sólo el orden.</div>
+    <div class="note">Las sesiones rotan A → B → C → A, y cada día de pesas lleva su pico 5×5 (★). Si el ejercicio de pico no está en la plantilla de esa sesión, entra en lugar del de su mismo patrón.</div>
   </div>
 
   <div class="sec">
@@ -493,9 +582,9 @@ function vInicio(){
   <div class="sec">
     <h2>Progresión</h2>
     <ol class="pasos">
-      <li>Completas todas las series con las repeticiones objetivo → sube la carga la próxima vez: +5 kg en sentadilla y peso muerto, +2,5 kg en el resto.</li>
-      <li>Te quedas corto en alguna serie → repites el mismo peso.</li>
-      <li>Tres fallos seguidos en el mismo ejercicio → descarga del 10 % y vuelves a subir desde ahí.</li>
+      <li><b>Pico 5×5</b> (sentadilla el martes, dominadas el jueves, banca el domingo): completas las 5×5 → sube la carga la próxima vez, +5 kg en sentadilla y +2,5 kg en el resto. Te quedas corto → repites peso.</li>
+      <li><b>Secundarios a ${SEC_S}×${SEC_MIN}–${SEC_MAX}</b>: cuando sacas ${SEC_S}×${SEC_MAX}, subes peso y vuelves a empezar desde ${SEC_MIN} reps.</li>
+      <li>Sin descargas automáticas: bajas carga cuando el cuerpo lo pida.</li>
       <li>En déficit calórico la progresión es más lenta de lo normal. Mantener la carga ya es un buen resultado.</li>
     </ol>
   </div>
@@ -513,6 +602,62 @@ function vInicio(){
     </div>
   </div>`;
 }
+/* ---------- series semanales por grupo muscular ----------
+   Conteo fraccionado: 1 serie si el músculo es motor principal, 0,5 si ayuda. */
+const MUSC_G=[['pecho','Pecho',1],['espalda','Espalda',1],['hombro','Hombro',1],['cuad','Cuádriceps',1],['isq','Isquios y glúteo',1],['bic','Bíceps',1],['tri','Tríceps',1],['trap','Trapecio',0],['core','Core',0]];
+const MUSC={
+  'Press banca plano':{pecho:1,tri:.5,hombro:.5}, 'Press banca inclinado':{pecho:1,hombro:.5,tri:.5},
+  'Press militar':{hombro:1,tri:.5}, 'Fondos':{pecho:1,tri:1}, 'Flexiones':{pecho:1,tri:.5,hombro:.5},
+  'Dominada':{espalda:1,bic:.5}, 'Dominada supina':{espalda:1,bic:1},
+  'Remo barra T':{espalda:1,bic:.5}, 'Remo en barra':{espalda:1,bic:.5}, 'Remo mancuerna a una mano':{espalda:1,bic:.5},
+  'Sentadilla':{cuad:1,isq:.5}, 'Peso muerto':{isq:1,espalda:.5,cuad:.5}, 'Peso muerto rumano':{isq:1},
+  'Zancadas':{cuad:1,isq:.5}, 'Hip thrust':{isq:1},
+  'Extensiones tríceps':{tri:1}, 'Tríceps barra Z':{tri:1},
+  'Curl bíceps barra Z':{bic:1}, 'Curl bíceps mancuerna':{bic:1}, 'Curl bíceps barra olímpica':{bic:1},
+  'Elevaciones frontales':{hombro:1}, 'Elevaciones laterales':{hombro:1}, 'Encogimientos':{trap:1},
+  'Elevaciones abdominales':{core:1}
+};
+const SER_MIN=10, SER_MAX=20;
+function sumaSeries(lista){ /* lista: [{n, s}] */
+  const o={}; MUSC_G.forEach(([k])=>o[k]=0);
+  lista.forEach(x=>{const m=MUSC[x.n]||{}; Object.keys(m).forEach(k=>o[k]+=m[k]*x.s);});
+  return o;
+}
+function semanaPlan(){
+  /* las 3 próximas sesiones en tus días de pico (mar, jue, dom), siguiendo la rotación A→B→C */
+  const out=[], d=new Date(hoy()+'T12:00:00'); let t=TIPOS.indexOf(proximoTipo());
+  for(let i=0;i<14&&out.length<3;i++){
+    const f=iso(new Date(d.getFullYear(),d.getMonth(),d.getDate()+i));
+    if(PICO_DIA[new Date(f+'T12:00:00').getDay()]){ out.push({t:TIPOS[t],f,dr:nuevoDraft(TIPOS[t],f)}); t=(t+1)%TIPOS.length; }
+  }
+  return out;
+}
+function contadorSeries(){
+  const plan=semanaPlan();
+  const P=sumaSeries(plan.flatMap(p=>p.dr.ej.map(e=>({n:e.n,s:e.reps.length}))));
+  const desde=iso(new Date(Date.now()-6*864e5));
+  const H=sumaSeries(sesiones().filter(([f])=>f>=desde&&f<=hoy()).flatMap(([,v])=>v.sesion.ej.map(e=>({n:e.n,s:e.reps.filter(r=>r>0).length}))));
+  const tope=Math.max(SER_MAX+4,...Object.values(P),...Object.values(H));
+  const dsem=f=>new Date(f+'T12:00:00').toLocaleDateString('es-ES',{weekday:'short'}).replace('.','');
+  const filas=MUSC_G.filter(([k,,obj])=>obj||P[k]||H[k]).map(([k,nom,obj])=>{
+    const v=P[k], est=!obj?'':(v<SER_MIN?'corto':(v>SER_MAX?'alto':'ok'));
+    const col=est==='ok'||!est?'var(--ink)':'var(--red)';
+    return `<div class="serrow">
+      <span class="sernom">${nom}${est&&est!=='ok'?` <span class="mut" style="font-size:10px">${est}</span>`:''}</span>
+      <span class="serbar">
+        ${obj?`<i class="serzona" style="left:${(SER_MIN/tope*100).toFixed(1)}%;width:${((SER_MAX-SER_MIN)/tope*100).toFixed(1)}%"></i>`:''}
+        <b style="width:${(v/tope*100).toFixed(1)}%;background:${col}"></b>
+      </span>
+      <span class="sernum"><b>${fmt(v,1)}</b><span class="mut"> · ${fmt(H[k],1)}</span></span>
+    </div>`;
+  }).join('');
+  return `<div class="sec">
+    <h2>Series por semana</h2>
+    <div class="mut" style="font-size:12px;margin-bottom:8px">Próxima semana: ${plan.map(p=>`${p.t} ${dsem(p.f)}`).join(' · ')}. La zona rayada es el rango de ${SER_MIN}–${SER_MAX} series.</div>
+    ${filas}
+    <div class="note">Número grande: series previstas con tu plantilla actual (pico 5, secundarios ${SEC_S}, opcionales con sus series). Número gris: las que hiciste en los últimos 7 días. Cuenta 1 si el músculo es el principal y 0,5 si ayuda. Cambia un ejercicio arriba y se recalcula.</div>
+  </div>`;
+}
 const PAT={pull:'TIRÓN',push:'EMPUJE',pierna:'PIERNA',accesorio:'ACC'};
 const patDe=n=>{const c=catDe(n);return c?c.g:null;};
 function lift(e,opc){
@@ -520,15 +665,60 @@ function lift(e,opc){
   return `<div class="lift${opc?' opt':''}"><span>${g?`<span class="pat">${PAT[g]}</span>`:''}${esc(e.n)}</span></div>`;
 }
 function tarjetaSesion(t){
-  const b=basicos(t), o=opcionales(t);
+  const all=S.config[t], b=all.filter(e=>!e.opt), o=all.filter(e=>e.opt);
   const falta=['pull','push','pierna'].filter(g=>!b.some(e=>patDe(e.n)===g));
   return `<div class="card">
-    <h3>Sesión ${t}</h3>
-    ${b.map(e=>lift(e)).join('')}
-    ${falta.length?`<div class="note" style="margin-top:8px"><span class="pat falta">${falta.map(g=>PAT[g]).join(' · ')}</span> sin cubrir entre los básicos</div>`:''}
-    ${o.length?`<div class="subh">Opcionales</div>
-      ${o.map(e=>lift(e,true)).join('')}`:''}
+    <h3>Sesión ${t} ${b.length?`<span style="font-weight:400;font-size:12px;color:var(--mut)">foco: ${patDe(b[0].n)?PAT[patDe(b[0].n)]:'—'}</span>`:''}</h3>
+    ${b.map((e,i)=>filaRutina(t,i,e)).join('')}
+    <div style="display:flex;gap:6px;margin-top:8px">
+      <button class="addej" style="margin:0" onclick="addEjRutina('${t}',false)">+ Básico</button>
+    </div>
+    ${falta.length?`<div class="note" style="margin-top:6px"><span class="pat falta">${falta.map(g=>PAT[g]).join(' · ')}</span> sin cubrir</div>`:''}
+    ${o.length?`<div class="subh">Opcionales</div>${o.map((e,i)=>filaRutina(t,b.length+i,e)).join('')}`:''}
+    <button class="addej" style="margin-top:6px" onclick="addEjRutina('${t}',true)">+ Accesorio</button>
   </div>`;
+}
+function filaRutina(t,i,e){
+  const g=patDe(e.n), all=S.config[t];
+  const grupos=e.opt?['accesorio']:['push','pull','pierna'];
+  return `<div class="card erow">
+    ${g?`<span class="pat">${PAT[g]}</span>`:''}
+    <select onchange="cambiaRutina('${t}',${i},this.value)">
+      ${grupos.map(g2=>`<optgroup label="${GRUPOS[g2]}">
+        ${CAT.filter(c=>c.g===g2).map(c=>`<option ${c.n===e.n?'selected':''}>${esc(c.n)}</option>`).join('')}
+      </optgroup>`).join('')}
+    </select>
+    ${i>0&&!e.opt?`<button class="arr" onclick="moverRutina('${t}',${i},-1)">↑</button>`:''}
+    ${i<all.filter(x=>x.opt===e.opt).length-1&&!e.opt?`<button class="arr" onclick="moverRutina('${t}',${i},1)">↓</button>`:''}
+    <button class="arr" onclick="quitarRutina('${t}',${i})">×</button>
+  </div>`;
+}
+async function cambiaRutina(t,i,n){
+  const c=catDe(n);
+  if(c){
+    const old=S.config[t][i];
+    S.config[t][i]={n:c.n,w:pesoActual(c.n),inc:c.inc,s:c.s,r:c.r,opt:!!old.opt};
+  }
+  await save(); render();
+}
+async function moverRutina(t,i,dir){
+  const a=S.config[t], j=i+dir;
+  if(j<0||j>=a.length) return;
+  [a[i],a[j]]=[a[j],a[i]];
+  await save(); render();
+}
+async function quitarRutina(t,i){
+  const e=S.config[t][i];
+  if(!e.opt&&basicos(t).length<=1){toast('Debe quedar al menos un básico');return;}
+  S.config[t].splice(i,1);
+  await save(); render();
+}
+async function addEjRutina(t,opt){
+  const usados=S.config[t].map(e=>e.n);
+  const pool=CAT.filter(c=>opt?c.g==='accesorio':c.g!=='accesorio');
+  const c=pool.find(x=>!usados.includes(x.n))||pool[0];
+  S.config[t].push({n:c.n,w:pesoActual(c.n),inc:c.inc,s:c.s,r:c.r,opt:!!opt});
+  await save(); render();
 }
 
 
@@ -554,7 +744,7 @@ function objetivoDatos(){
 
 /* ---------- escalas de la báscula (RENPHO) ---------- */
 function escalas(){
-  const h=(S.config.altura||183)/100, h2=h*h;
+  const h=(S.config.altura||175)/100, h2=h*h;
   return {
     peso:{cortes:[18.5*h2,25*h2,30*h2],zonas:['Bajo peso','Normal','Sobrepeso','Obesidad'],dec:1,un:'kg'},
     imc:{cortes:[18.5,25,30],zonas:['Bajo peso','Normal','Sobrepeso','Obesidad'],dec:1,un:''},
@@ -691,7 +881,7 @@ async function guardarObjetivo(){
 const PULG=2.54;
 function media(a,b){const v=[a,b].filter(x=>x!=null);return v.length?v.reduce((x,y)=>x+y,0)/v.length:null;}
 function proporciones(){
-  const m=ultM(), h=S.config.altura||183;
+  const m=ultM(), h=S.config.altura||175;
   const C=h*0.46;                      /* cintura objetivo: 46 % de la altura */
   return {m,h,C,grupos:[
     {g:'Tren superior', filas:[
@@ -756,16 +946,10 @@ function vMedidas(){
   const c=F_MED.find(x=>x[0]===selMed)||F_MED[0];
   const whr=m.cintura&&m.cadera?(m.cintura/m.cadera).toFixed(2).replace('.',','):'—';
   return `
+  ${vCuerpo(m,whr)}
   <div class="sec">
-    <div class="row"><h2 style="margin:0">Actuales</h2><span class="mut">${m.fecha?larga(m.fecha):'—'}</span></div>
-    <div class="stats">
-      ${F_MED.map(c=>`<div><b>${fmt(m[c[0]],c[4])}</b><span>${c[2]}${deltaHTML(S.medidas,c[0],1)}</span></div>`).join('')}
-      <div><b>${whr}</b><span>cintura/cadera</span></div>
-    </div>
-  </div>
-  <div class="sec">
-    <div class="row"><h2 style="margin:0">Objetivos de proporción</h2><span class="mut">cintura ${fmt((S.config.altura||183)*0.46)} cm</span></div>
-    <div class="note" style="margin:4px 0 10px">Todo se calcula sobre la cintura a la que vas: el 46 % de tu altura, ${fmt((S.config.altura||183)*0.46)} cm. Cambia la altura en la pestaña Peso si no es correcta.</div>
+    <div class="row"><h2 style="margin:0">Objetivos de proporción</h2><span class="mut">cintura ${fmt((S.config.altura||175)*0.46)} cm</span></div>
+    <div class="note" style="margin:4px 0 10px">Todo se calcula sobre la cintura a la que vas: el 46 % de tu altura, ${fmt((S.config.altura||175)*0.46)} cm. Cambia la altura en la pestaña Peso si no es correcta.</div>
     ${proporciones().grupos.map(gr=>`
       <div class="subh" style="margin-top:12px">${gr.g}</div>
       ${gr.filas.map(filaObjetivo).join('')}
@@ -780,16 +964,6 @@ function vMedidas(){
     <h2>Tendencia por zona</h2>
     ${chips(F_MED,selMed,'selMedSet')}
     ${grafica(serie(S.medidas,c[0]),c[3],c[4],c[1])}
-  </div>
-  <div class="sec">
-    <details><summary>Nueva medición</summary>
-      <div class="mut" style="margin:6px 0">Campos prerrellenados con la última toma. Cambia sólo lo que se mueva.</div>
-      <div class="fields">
-        <div style="grid-column:1/-1"><label for="m_fecha">Fecha</label><input id="m_fecha" type="date" value="${hoy()}"></div>
-        ${F_MED.map(c=>`<div><label for="m_${c[0]}">${c[1]} (cm)</label><input id="m_${c[0]}" inputmode="decimal" value="${m[c[0]]==null?'':m[c[0]]}"></div>`).join('')}
-      </div>
-      <button class="btn" onclick="guardarMedida()">Guardar medición</button>
-    </details>
   </div>
   <div class="sec">
     <h2>Histórico</h2>
@@ -820,15 +994,110 @@ function vMedidas(){
     <div class="note" style="text-align:center;margin-top:14px">${VERSION}</div>
   </div>`;
 }
+/* cuerpo interactivo: casillas izquierda/derecha como RENPHO, cinta roja en la zona */
+const MED_IZQ=['cuello','pecho','abdomen','bicepsI','musloI','gemeloI'];
+const MED_DER=['hombros','cintura','cadera','bicepsD','musloD','gemeloD'];
+const MED_COMO={
+  cuello:'Justo por debajo de la nuez, cinta horizontal, sin apretar.',
+  hombros:'Alrededor de ambos hombros por la parte más ancha de los deltoides, brazos relajados.',
+  pecho:'A la altura de los pezones, por debajo de las axilas, tras soltar el aire.',
+  cintura:'Punto más estrecho del tronco, entre la última costilla y el ombligo. Sin meter tripa.',
+  abdomen:'Horizontal a la altura del ombligo, al final de una espiración normal.',
+  cadera:'Por la parte más ancha de los glúteos, pies juntos.',
+  bicepsI:'Brazo izquierdo, punto más grueso del bíceps. Elige relajado o contraído y sé constante.',
+  bicepsD:'Brazo derecho, punto más grueso del bíceps. Igual que el izquierdo.',
+  musloI:'Muslo izquierdo, justo por debajo del pliegue del glúteo, de pie con peso repartido.',
+  musloD:'Muslo derecho, justo por debajo del pliegue del glúteo.',
+  gemeloI:'Gemelo izquierdo, parte más gruesa, de pie.',
+  gemeloD:'Gemelo derecho, parte más gruesa, de pie.'
+};
+/* bandas sobre la silueta (viewBox 160×360): x, y, ancho */
+const MED_ZONA={
+  cuello:[69,50,22], hombros:[34,66,92], pecho:[49,86,62], cintura:[57,124,46], abdomen:[56,142,48], cadera:[51,168,58],
+  bicepsI:[34,98,19], bicepsD:[107,98,19], musloI:[52,212,28], musloD:[80,212,28], gemeloI:[58,286,18], gemeloD:[84,286,18]
+};
+let medEd=null, medSel='cintura';
+function medEdInit(){
+  if(medEd) return;
+  const m=ultM(), v={}; F_MED.forEach(c=>v[c[0]]=m[c[0]]!=null?m[c[0]]:null);
+  medEd={fecha:hoy(), v, base:Object.assign({},v)};
+}
+function siluetaSVG(sel){
+  const fig='#bdbdbd';
+  const mir=p=>p.split(' ').map(q=>{const [x,y]=q.split(',');return (160-x)+','+y;}).join(' ');
+  const brazo='52,58 42,64 36,100 32,132 28,172 26,194 36,196 40,172 46,134 52,102 56,82';
+  const pierna='56,184 80,184 79,204 77,252 75,292 73,334 62,334 60,292 56,252 54,206';
+  const z=MED_ZONA[sel];
+  return `<svg class="silueta" viewBox="0 0 160 360" aria-hidden="true">
+    <g fill="${fig}" stroke="${fig}" stroke-width="6" stroke-linejoin="round">
+      <ellipse cx="80" cy="26" rx="14" ry="17"/>
+      <rect x="73" y="40" width="14" height="16"/>
+      <polygon points="52,58 108,58 106,82 101,122 99,140 106,166 105,188 55,188 54,166 61,140 59,122 54,82"/>
+      <polygon points="${brazo}"/><polygon points="${mir(brazo)}"/>
+      <polygon points="${pierna}"/><polygon points="${mir(pierna)}"/>
+      <ellipse cx="66" cy="342" rx="9" ry="5"/><ellipse cx="94" cy="342" rx="9" ry="5"/>
+    </g>
+    ${z?`<g class="cinta"><rect x="${z[0]-3}" y="${z[1]-3.5}" width="${z[2]+6}" height="7" rx="3.5" fill="#e53935"/>
+      <line x1="${z[0]}" y1="${z[1]}" x2="${z[0]+z[2]}" y2="${z[1]}" stroke="#fff" stroke-width="1.2" stroke-dasharray="2 2"/></g>`:''}
+  </svg>`;
+}
+function vCuerpo(m,whr){
+  medEdInit();
+  const c=F_MED.find(x=>x[0]===medSel)||F_MED[0];
+  const val=medEd.v[medSel];
+  const cambios=F_MED.filter(x=>medEd.v[x[0]]!==medEd.base[x[0]]).length;
+  const casilla=k=>{
+    const cc=F_MED.find(x=>x[0]===k), lado=/I$/.test(k)?'izq':(/D$/.test(k)?'der':'');
+    const mod=medEd.v[k]!==medEd.base[k];
+    return `<button class="mcas" aria-pressed="${k===medSel}" onclick="medSelSet('${k}')">
+      <span>${cc[1].replace(/ (izquierdo|derecho)$/,'')}${lado?` <i>${lado}</i>`:''}${mod?' ●':''}</span>
+      <b>${medEd.v[k]==null?'—':fmt(medEd.v[k],1)}<small> cm</small></b>
+    </button>`;
+  };
+  return `<div class="sec">
+    <div class="row"><h2 style="margin:0">Cuerpo</h2><span class="mut">última toma ${m.fecha?larga(m.fecha):'—'} · cintura/cadera ${whr}</span></div>
+    <div class="cuerpo">
+      <div class="mcol">${MED_IZQ.map(casilla).join('')}</div>
+      <div class="mfig">${siluetaSVG(medSel)}</div>
+      <div class="mcol">${MED_DER.map(casilla).join('')}</div>
+    </div>
+    <div class="medit">
+      <div class="row"><b>${c[1]}</b><span class="mut">${m[medSel]!=null?`anterior ${fmt(m[medSel],1)} cm${deltaHTML(S.medidas,medSel,1)}`:''}</span></div>
+      <div class="mut" style="margin:2px 0 8px">${MED_COMO[medSel]}</div>
+      <div class="mstep">
+        <button onclick="medPaso(-0.5)">−</button>
+        <input inputmode="decimal" value="${val==null?'':val}" onchange="medSet(this.value)" aria-label="${c[1]} en cm">
+        <span>cm</span>
+        <button onclick="medPaso(0.5)">+</button>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="mini" onclick="medMover(-1)">← anterior</button>
+        <button class="mini" onclick="medMover(1)">siguiente →</button>
+      </div>
+      <label class="mut" for="m_fecha" style="display:block;margin-top:12px;font-size:11px">Fecha de la toma</label>
+      <input id="m_fecha" class="mfecha" type="date" value="${medEd.fecha}" max="${hoy()}" onchange="medFecha(this.value)">
+      <button class="btn" onclick="guardarMedida()">Guardar medición${cambios?` · ${cambios} cambio${cambios>1?'s':''}`:''}</button>
+      ${cambios?`<button class="btn ghost" onclick="medDescartar()">Descartar cambios</button>`:''}
+      <div class="note">Casillas prerrellenadas con la última toma; ● marca lo que has cambiado. La figura es tu reflejo en el espejo: tu izquierda queda a la izquierda.</div>
+    </div>
+  </div>`;
+}
+const MED_ORDEN=['cuello','hombros','pecho','cintura','abdomen','cadera','bicepsI','bicepsD','musloI','musloD','gemeloI','gemeloD'];
+function medSelSet(k){medSel=k;selMed=k;render();}
+function medMover(d){const i=MED_ORDEN.indexOf(medSel);medSel=selMed=MED_ORDEN[(i+d+MED_ORDEN.length)%MED_ORDEN.length];render();}
+function medSet(v){const n=num(v);medEd.v[medSel]=n==null?null:Math.round(n*10)/10;render();}
+function medPaso(d){const x=medEd.v[medSel];medEd.v[medSel]=Math.round(((x==null?0:x)+d)*10)/10;render();}
+function medFecha(v){if(v)medEd.fecha=v>hoy()?hoy():v;render();}
+function medDescartar(){medEd=null;render();}
 async function guardarMedida(){
-  const reg={fecha:document.getElementById('m_fecha').value||hoy()};
-  F_MED.forEach(c=>reg[c[0]]=num(document.getElementById('m_'+c[0]).value));
+  const reg={fecha:medEd.fecha||hoy()};
+  F_MED.forEach(c=>reg[c[0]]=medEd.v[c[0]]);
   S.medidas=S.medidas.filter(r=>r.fecha!==reg.fecha).concat([reg]).sort(ordFecha);
-  await save(); render(); window.scrollTo(0,0); toast('Medición guardada');
+  await save(); medEd=null; render(); window.scrollTo(0,0); toast('Medición guardada');
 }
 async function borrarMedida(f){
   if(S.medidas.length<=1){toast('Debe quedar al menos una medición');return;}
-  S.medidas=S.medidas.filter(r=>r.fecha!==f); await save(); render(); toast('Medición borrada');
+  S.medidas=S.medidas.filter(r=>r.fecha!==f); medEd=null; await save(); render(); toast('Medición borrada');
 }
 
 /* ---------- sesión ---------- */
@@ -869,20 +1138,24 @@ function vEntreno(){
   </div>`;
 }
 function filaEj(e,i){
+  const bv=usaBarra20(e.n)?(e.barra||20):null;
+  const bEj=bv!=null?bv:undefined;
   return `
     <div class="ex">
-      <div class="row">${selectSesion(i,e)}<span class="mut">${e.reps.length}×${e.obj}</span></div>
+      <div class="row">${selectSesion(i,e)}<span class="mut">${e.reps.length}×${e.sec?SEC_MIN+'–'+SEC_MAX:e.obj}</span></div>
+      ${e.opt?'':`<div class="pkinfo"><button class="tagpk${e.pico?' on':''}" onclick="togglePico(${i})">${e.pico?'Pico 5×5':'Secundario'}</button><span>${e.pico?'a tope · completo → sube':`${SEC_MIN}–${SEC_MAX} reps · sube al hacer ${SEC_S}×${SEC_MAX}`}</span></div>`}
       <div class="wt">
-        <input inputmode="decimal" value="${e.lado?fmt((e.w-barDe(e.n))/ladosDe(e.n)):e.w}" onchange="setPeso(${i},this.value)">
+        <input inputmode="decimal" value="${e.lado?fmt((e.w-barDe(e.n,bEj))/ladosDe(e.n)):e.w}" onchange="setPeso(${i},this.value)">
         <span class="mut" style="flex:1">${e.lado?(esUna(e.n)?'kg en discos':'kg por lado'):'kg totales'}</span>
-        ${barDe(e.n)>0&&!esMan(e.n)?`<button class="mini" aria-pressed="${!!e.lado}" onclick="modoLado(${i})">${e.lado?'total':(esUna(e.n)?'discos':'por lado')}</button>`:''}
+        ${bv!=null?`<button class="mini" aria-pressed="${bv===15}" onclick="toggleBarra(${i})" title="${bv===20?'Barra olímpica larga':'Barra olímpica corta'}">barra ${bv}</button>`:''}
+        ${barDe(e.n,bEj)>0&&!esMan(e.n)?`<button class="mini" aria-pressed="${!!e.lado}" onclick="modoLado(${i})">${e.lado?'total':(esUna(e.n)?'discos':'por lado')}</button>`:''}
         <button class="mini" aria-pressed="${e.edit}" onclick="modoEdit(${i})">${e.edit?'✓':'✎ reps'}</button>
       </div>
-      <div class="mut" style="margin:-2px 0 8px">${e.lado?`= ${fmt(e.w)} kg totales · `:''}${desglose(e.n,e.w)}</div>
+      <div class="mut" style="margin:-2px 0 8px">${e.lado?`= ${fmt(e.w)} kg totales · `:''}${desglose(e.n,e.w,bEj)}</div>
       <div class="setsrow">
         ${e.reps.map((r,j)=>e.edit
           ? `<input class="set" inputmode="numeric" value="${r}" onchange="setReps(${i},${j},this.value)">`
-          : `<button class="set ${r>=e.obj?'full':(r>0?'part':'zero')}" onclick="tocar(${i},${j})">${r}</button>`
+          : `<button class="set ${r>=(e.min||e.obj)?'full':(r>0?'part':'zero')}" onclick="tocar(${i},${j})">${r}</button>`
         ).join('')}
         ${e.reps.length>1?`<button class="set delset" onclick="quitarSerie(${i})" title="Quitar serie">−</button>`:''}
         <button class="set addset" onclick="addSerie(${i})" title="Añadir serie">+</button>
@@ -896,8 +1169,8 @@ function addEjDraft(opt){
   const pool=CAT.filter(c=>opt?c.g==='accesorio':c.g!=='accesorio');
   const c=pool.find(x=>!usados.includes(x.n))||pool[0];
   const nser=opt?3:5;
-  draft.ej.push({n:c.n,w:pesoActual(c.n),obj:c.r,reps:Array(nser).fill(c.r),edit:false,opt:!!opt,lado:false});
-  render();
+  draft.ej.push(opt?{n:c.n,w:pesoActual(c.n),obj:c.r,reps:Array(nser).fill(c.r),edit:false,opt:true,lado:false}:mkEj(c.n,!draft.ej.some(x=>x.pico)&&PICOS.includes(c.n)));
+  picoPrimero(draft.ej); render();
 }
 function quitarEjDraft(i){
   const e=draft.ej[i];
@@ -948,7 +1221,7 @@ async function edEj(t,i,campo,v){
   else { const n=num(v); if(n==null||n<0){render();return;}
     e[campo]=(campo==='s'||campo==='r')?Math.max(1,Math.round(n)):n; }
   await save();
-  if(draft&&draft.tipo===t){draft=nuevoDraft(t);draft.abrirEditor=true;}
+  if(draft&&draft.tipo===t){draft=nuevoDraft(t,draft.fecha);draft.abrirEditor=true;}
   render();
 }
 async function anadirEj(t){
@@ -957,7 +1230,7 @@ async function anadirEj(t){
   S.config[t].push({n:c.n,w:pesoActual(c.n),inc:c.inc,s:c.s,r:c.r,opt:false});
   S.config[t].sort((a,b)=>(a.opt?1:0)-(b.opt?1:0));
   await save();
-  if(draft&&draft.tipo===t){draft=nuevoDraft(t);}
+  if(draft&&draft.tipo===t){draft=nuevoDraft(t,draft.fecha);}
   if(draft)draft.abrirEditor=true;
   render(); toast('Ejercicio añadido');
 }
@@ -965,7 +1238,7 @@ async function borrarEj(t,i){
   if(basicos(t).length<=1&&!S.config[t][i].opt){toast('Debe quedar al menos un básico');return;}
   S.config[t].splice(i,1);
   await save();
-  if(draft&&draft.tipo===t){draft=nuevoDraft(t);}
+  if(draft&&draft.tipo===t){draft=nuevoDraft(t,draft.fecha);}
   if(draft)draft.abrirEditor=true;
   render(); toast('Ejercicio quitado');
 }
@@ -980,12 +1253,23 @@ function selectSesion(i,e){
 }
 function cambiaEj(i,n){
   const prev=draft.ej[i], c=catDe(n)||{s:prev.reps.length,r:prev.obj};
-  draft.ej[i]={n,w:pesoActual(n),obj:c.r,reps:Array(prev.reps.length).fill(c.r),edit:false,opt:prev.opt,lado:false};
+  draft.ej[i]=prev.opt?{n,w:pesoActual(n),obj:c.r,reps:Array(prev.reps.length).fill(c.r),edit:false,opt:true,lado:false}:mkEj(n,!!prev.pico);
   render();
 }
 function nuevoDraft(t,fecha){
-  return {tipo:t,fecha:fecha||hoy(),ej:S.config[t].map(e=>({n:e.n,w:pesoActual(e.n),obj:e.r,reps:Array(e.s).fill(e.r),edit:false,opt:!!e.opt}))};
+  const lista=S.config[t].map(e=>({n:e.n,opt:!!e.opt,s:e.s,r:e.r}));
+  /* el día del pico (mar/jue/dom) mete su ejercicio de referencia en lugar del de su mismo patrón */
+  const ref=PICO_DIA[new Date((fecha||hoy())+'T12:00:00').getDay()];
+  if(ref&&!lista.some(e=>e.n===ref)){
+    const g=(catDe(ref)||{}).g, k=lista.findIndex(e=>!e.opt&&(catDe(e.n)||{}).g===g);
+    if(k>=0) lista[k].n=ref;
+  }
+  const iP=eligePico(lista.map(e=>e.opt?null:e.n),fecha);
+  const ej=lista.map((e,i)=>e.opt?{n:e.n,w:pesoActual(e.n),obj:e.r,reps:Array(e.s).fill(e.r),edit:false,opt:true}:mkEj(e.n,i===iP));
+  return {tipo:t,fecha:fecha||hoy(),ej:picoPrimero(ej)};
 }
+/* el pico 5×5 va siempre el primero: se hace fresco */
+function picoPrimero(ej){ const i=ej.findIndex(e=>e.pico); if(i>0) ej.unshift(ej.splice(i,1)[0]); return ej; }
 function cambiarTipo(t){ const ab=draft&&draft.abrirEditor, f=draft&&draft.fecha; draft=nuevoDraft(t,f); draft.abrirEditor=ab; render(); }
 function setFecha(v){ if(!v)return; draft.fecha=v>hoy()?hoy():v; render(); }
 function pedirFecha(){ draft.confirm=true; draft.fecha=hoy(); draft.otra=false; render(); }
@@ -1022,19 +1306,26 @@ function generarD(){
     const pool=libres.length?libres:op;
     return pool[Math.floor(Math.random()*pool.length)];
   };
-  draft={tipo:'D',abrirEditor:ab,fecha:fPrev||hoy(),ej:['push','pull','pierna'].map(g=>{
-    const c=sortea(g);
-    return {n:c.n,w:pesoActual(c.n),obj:c.r,reps:Array(c.s).fill(c.r),edit:false,opt:false};
-  })};
+  const ejD=['push','pull','pierna'].map(g=>sortea(g).n), iD=eligePico(ejD,fPrev);
+  draft={tipo:'D',abrirEditor:ab,fecha:fPrev||hoy(),ej:ejD.map((n,i)=>mkEj(n,i===iD))};
   render();
 }
 function setPeso(i,v){
   const n=num(v); if(n==null){render();return;}
   const e=draft.ej[i];
-  e.w=e.lado?barDe(e.n)+ladosDe(e.n)*n:n;
+  const bEj=usaBarra20(e.n)?(e.barra||20):undefined;
+  e.w=e.lado?barDe(e.n,bEj)+ladosDe(e.n)*n:n;
   render();
 }
 function modoLado(i){draft.ej[i].lado=!draft.ej[i].lado;render();}
+function toggleBarra(i){
+  const e=draft.ej[i];
+  if(!usaBarra20(e.n))return;
+  const oldB=e.barra||20, newB=oldB===20?15:20;
+  if(e.lado){const discos=(e.w-oldB)/ladosDe(e.n); e.w=newB+discos*ladosDe(e.n);}
+  e.barra=newB;
+  render();
+}
 function tocar(i,j){const e=draft.ej[i];e.reps[j]=e.reps[j]<=0?e.obj:e.reps[j]-1;render();}
 function setReps(i,j,v){const n=num(v);draft.ej[i].reps[j]=n==null?0:Math.max(0,Math.round(n));render();}
 function modoEdit(i){draft.ej[i].edit=!draft.ej[i].edit;render();}
@@ -1042,12 +1333,17 @@ function addSerie(i){const e=draft.ej[i];if(e.reps.length>=10){toast('Máximo 10
 function quitarSerie(i){const e=draft.ej[i];if(e.reps.length<=1)return;e.reps.pop();render();}
 async function guardarSesion(){
   const ej=draft.ej.map(e=>{
-    const ok=e.reps.every(r=>r>=e.obj);
     const inc=incDe(e.n);
-    const fallos=ok?0:(fallosPrevios(draft.tipo,e.n)+1);
-    let sig=ok?e.w+inc:e.w;
-    if(fallos>=3) sig=Math.round((e.w*0.9)/2.5)*2.5;
-    return {n:e.n,w:e.w,reps:e.reps.slice(),ok,fallos,sig};
+    const ok=e.reps.every(r=>r>=(e.sec?SEC_MIN:e.obj));
+    let fallos=0, sig;
+    if(e.sec) sig=e.reps.every(r=>r>=SEC_MAX)?e.w+inc:e.w;
+    else if(e.pico) sig=ok?e.w+inc:e.w;
+    else { fallos=ok?0:(fallosPrevios(draft.tipo,e.n)+1); sig=ok?e.w+inc:e.w; if(fallos>=3) sig=Math.round((e.w*0.9)/2.5)*2.5; }
+    const obj={n:e.n,w:e.w,reps:e.reps.slice(),ok,fallos,sig};
+    if(e.pico) obj.pico=true;
+    if(e.sec) obj.sec=true;
+    if(e.barra&&e.barra!==20) obj.barra=e.barra;
+    return obj;
   });
   const k=draft.fecha||hoy(), tipo=draft.tipo;
   S.dias[k]=Object.assign({},S.dias[k],{sesion:{tipo,ej}});
@@ -1066,7 +1362,7 @@ function historialSesiones(){
   if(!s.length)return '<div class="mut">Todavía nada. Guarda la primera sesión y aparecerá el registro.</div>';
   return s.map(([f,v])=>`<div style="border-bottom:1px solid var(--grid);padding:8px 0">
     <div class="row"><b>Sesión ${v.sesion.tipo}</b><span class="mut">${larga(f)}</span></div>
-    ${v.sesion.ej.map(e=>`<div class="row" style="font-size:13px"><span>${esc(e.n)} · ${fmt(e.w)} kg</span><span class="${e.ok?'up':'down'}">${e.reps.join('·')}</span></div>`).join('')}
+    ${v.sesion.ej.map(e=>`<div class="row" style="font-size:13px"><span>${e.pico?'<b>★ ':''}${esc(e.n)} · ${fmt(e.w)} kg${e.pico?'</b>':''}${e.sec?' <span class="mut">sec.</span>':''}</span><span class="${e.ok?'up':'down'}">${e.reps.join('·')}</span></div>`).join('')}
   </div>`).join('');
 }
 const CARDIO={andar:'Caminata',bici:'Bicicleta'};
@@ -1075,6 +1371,7 @@ async function cardio(t,k){
   const nuevo=v.cardio===t?null:t;
   S.dias[k]=Object.assign({},v,{cardio:nuevo});
   if(!nuevo) delete S.dias[k].cardio;
+  if(!Object.keys(S.dias[k]).length) delete S.dias[k];
   await save(); render();
   toast(nuevo?CARDIO[nuevo]+' registrada':'Cardio eliminado');
 }
@@ -1090,6 +1387,7 @@ const STD_DEF={
   'Remo en barra':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50]},
   'Sentadilla':{t:'ratio',src:'SL',v:[0.75,1.25,1.75,2.25]},
   'Peso muerto':{t:'ratio',src:'SL',v:[1.00,1.50,2.00,2.50]},
+  'Peso muerto rumano':{t:'ratio',src:'SL',v:[0.85,1.15,1.55,2.00],nota:'Ratios sacados de la tabla por peso corporal de Strength Level en la franja de 90–95 kg.'},
   'Dominada':{t:'reps',src:'SL',tab:{50:[0.5,6,14,24],55:[0.5,7,14,24],60:[0.5,7,14,23],65:[0.5,7,14,23],70:[0.5,7,14,22],75:[0.5,7,13,21],80:[1,7,13,21],85:[1,7,13,20],90:[1,7,12,19],95:[1,7,12,19],100:[0.5,6,11,18],105:[0.5,6,11,18],110:[0.5,6,10,17],115:[0.5,6,10,16],120:[0.5,5,10,16],125:[0.5,5,10,15],130:[0.5,5,9,14],135:[0.5,4,9,14],140:[0.5,4,9,13]}},
   'Flexiones':{t:'reps',src:'SL',tab:{50:[1,18,42,70],55:[2,19,42,69],60:[4,19,41,67],65:[4,20,41,65],70:[5,20,40,64],75:[6,20,39,62],80:[6,20,38,60],85:[6,20,38,59],90:[6,19,37,57],95:[6,19,36,56],100:[6,19,35,54]}},
   'Remo barra T':{t:'ratio',src:'SL',v:[0.50,0.75,1.00,1.50]},
@@ -1137,7 +1435,7 @@ function seriePeso(n){
   const out=[];
   sesiones().forEach(([f,v])=>{
     const e=v.sesion.ej.find(x=>x.n===n); if(!e) return;
-    out.push({f,v:e.w,reps:e.reps,ok:e.ok});
+    out.push({f,v:e.w,reps:e.reps,ok:e.ok,barra:e.barra});
   });
   return out;
 }
@@ -1146,8 +1444,10 @@ function serieMarca(n){
   sesiones().forEach(([f,v])=>{
     const e=v.sesion.ej.find(x=>x.n===n); if(!e) return;
     const r=Math.max(...e.reps); if(r<=0) return;
-    out.push({f,v:d.t==='reps'?r:epley(cargaTotal(n,e.w),r)});
+    out.push({f,v:d.t==='reps'?r:epley(cargaTotal(n,e.w),r),sec:!!e.sec});
   });
+  /* pico: la mejor marca hasta esa fecha. Un día ligero no la baja */
+  let mx=-Infinity; out.forEach(p=>{mx=Math.max(mx,p.v);p.pk=mx;});
   return out;
 }
 function nivelDe(val,u){
@@ -1171,8 +1471,9 @@ function vFuerza(){
   return `
   <div class="sec">
     <div class="chips">${nombres.map(x=>`<button aria-pressed="${x===n}" onclick="selFzaSet('${esc(x)}')">${esc(x)}</button>`).join('')}</div>
-    <div class="row" style="margin-top:6px"><div class="big">${m?fmt(m.v,dec):'—'} ${un}</div><div class="mut">${reps?'mejor serie':'1RM'} ${m&&m.estim?'estimado':'registrado'}</div></div>
+    <div class="row" style="margin-top:6px"><div class="big">${m?fmt(m.v,dec):'—'} ${un}</div><div class="mut" style="text-align:right">${reps?'mejor serie':'1RM pico'} ${m&&m.estim?'estimado':''}${m&&m.f?`<br>${larga(m.f)}`:''}</div></div>
     ${(!reps&&m&&porLado(n,m.v)!=null)?`<div class="mut">= ${fmt(porLado(n,m.v))} kg ${esUna(n)?'en discos':'por lado'} · ${desglose(n,m.v)}</div>`:''}
+    ${(()=>{const u0=pts[pts.length-1]; return (m&&!m.estim&&u0&&u0.v<m.v-0.5)?`<div class="mut" style="font-size:12px">Última sesión: ${fmt(u0.v,dec)} ${un}${u0.sec?' (secundario)':''}. No baja tu pico.</div>`:'';})()}
     <div class="row"><span class="mut">${reps?`a ${fmt(bw)} kg de peso corporal`:`${fmt(m?m.v/bw:null,2)} × peso corporal (${fmt(bw)} kg)`}</span><b>${lv?(lv.i<0?'Bajo '+N[0].toLowerCase():N[lv.i]):'—'}</b></div>
     <div class="escbar">
       ${lv?`<em style="left:${Math.max(0,Math.min(100,lv.pct)).toFixed(1)}%"></em>`:''}
@@ -1241,28 +1542,31 @@ function graficaFza(pts,u,dec,N){
   const lo=Math.min(...ys,u[0])*0.93, hi=Math.max(...ys)*1.12;
   const X=i=>L+(i/(pts.length-1))*(W-L-R);
   const Y=v=>Tp+(1-(v-lo)/(hi-lo))*(H-Tp-B);
-  const linea=pts.map((p,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(p.v).toFixed(1)}`).join(' ');
-  const last=pts.length-1;
+  const pk=p=>p.pk!=null?p.pk:p.v;
+  const linea=pts.map((p,i)=>`${i?'L':'M'}${X(i).toFixed(1)},${Y(pk(p)).toFixed(1)}`).join(' ');
+  const last=pts.length-1, ligeras=pts.filter(p=>p.v<pk(p)-0.5).length;
   return `<svg class="g" viewBox="0 0 ${W} ${H}" role="img">
     ${u.map((r,i)=>{const y=Y(r); return (y>Tp&&y<H-B)?`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="var(--rule)" stroke-dasharray="3 3"/><text x="${L+2}" y="${(y-3).toFixed(1)}" font-size="9" fill="var(--mut)">${N[i]}</text>`:'';}).join('')}
     <path d="${linea}" fill="none" stroke="var(--ink)" stroke-width="2"/>
-    ${pts.map((p,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="3" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
-      ${(i===0||i===last)?`<text x="${X(i).toFixed(1)}" y="${H-8}" text-anchor="${i?'end':'start'}" font-size="9" fill="var(--mut)">${corta(p.f)}</text>`:''}`).join('')}
+    ${pts.map((p,i)=>{const lig=p.v<pk(p)-0.5;
+      return `${lig?`<line x1="${X(i).toFixed(1)}" y1="${Y(pk(p)).toFixed(1)}" x2="${X(i).toFixed(1)}" y2="${Y(p.v).toFixed(1)}" stroke="var(--mut)" stroke-width="1" stroke-dasharray="2 2"/>`:''}
+      <circle cx="${X(i).toFixed(1)}" cy="${Y(p.v).toFixed(1)}" r="${lig?2.5:3}" fill="${lig?'var(--mut)':'var(--paper)'}" stroke="${lig?'var(--mut)':'var(--ink)'}" stroke-width="1.6" opacity="${lig?.6:1}"/>
+      ${(i===0||i===last)?`<text x="${X(i).toFixed(1)}" y="${H-8}" text-anchor="${i?'end':'start'}" font-size="9" fill="var(--mut)">${corta(p.f)}</text>`:''}`;}).join('')}
   </svg>
-  <div class="note">De ${fmt(pts[0].v,dec)} a ${fmt(pts[last].v,dec)} en ${pts.length} sesiones registradas.</div>`;
+  <div class="note">La línea es tu pico: la mejor marca hasta cada fecha, y solo sube. Los puntos grises son sesiones más ligeras (${ligeras} de ${pts.length}), que no lo bajan. Pico de ${fmt(pk(pts[0]),dec)} a ${fmt(pk(pts[last]),dec)}.</div>`;
 }
 function histSesionesEj(n,reps){
   const w=seriePeso(n);
   if(!w.length) return '<div class="mut">Aún no has registrado ninguna sesión con este ejercicio. En cuanto guardes la primera aparecerá aquí su progresión.</div>';
   const pts=w.map(x=>({f:x.f,v:reps?Math.max(...x.reps):x.v}));
   const b=barDe(n), lado=!reps&&b>0&&!esMan(n);
-  return `${grafica(pts,reps?'reps':'kg',reps?0:1,reps?'Mejor serie':'Peso de trabajo')}
+  return `${grafica(pts,reps?'reps':'kg',reps?0:1,reps?'Mejor serie':'Peso de trabajo',true)}
   <table style="margin-top:10px">
     <tr><th>Fecha</th><th class="n">${reps?'Reps':'Peso'}</th>${lado?`<th class="n">${esUna(n)?'Discos':'Por lado'}</th>`:''}<th class="n">Series</th></tr>
     ${w.slice().reverse().map(x=>`<tr>
       <td>${larga(x.f)}</td>
       <td class="n"><b>${reps?Math.max(...x.reps):fmt(x.v)}</b></td>
-      ${lado?`<td class="n mut">${porLado(n,x.v)==null?'—':fmt(porLado(n,x.v))}</td>`:''}
+      ${lado?`<td class="n mut">${porLado(n,x.v,x.barra)==null?'—':fmt(porLado(n,x.v,x.barra))}${x.barra&&x.barra!==barDe(n)?` <span style="font-size:10px">(${x.barra})</span>`:''}</td>`:''}
       <td class="n ${x.ok?'':'down'}">${x.reps.join('·')}</td>
     </tr>`).join('')}
   </table>`;
@@ -1280,13 +1584,13 @@ async function setStd(n,i,v){
 function vCalendario(){
   const n=new Date(); if(!calMes)calMes={a:n.getFullYear(),m:n.getMonth()};
   const primero=new Date(calMes.a,calMes.m,1), dias=new Date(calMes.a,calMes.m+1,0).getDate();
-  const off=(primero.getDay()+6)%7;
+  const off=(primero.getDay()+6)%7, mIni=(mesoInicio()||{}).f;
   let cel='';
   for(let i=0;i<off;i++)cel+='<div class="day off"></div>';
   for(let d=1;d<=dias;d++){
     const k=iso(new Date(calMes.a,calMes.m,d)), v=S.dias[k]||{};
     cel+=`<button class="day ${k===hoy()?'today':''} ${k===calSel?'sel':''}" onclick="selDia('${k}')">
-      <span>${d}</span>
+      <span>${d}${mIni===k?' ▸':''}</span>
       ${v.sesion?`<span class="tag tag${v.sesion.tipo}${esManual(v)?' manual':''}">${v.sesion.tipo}</span>`:''}
       ${v.cardio?`<span class="walk ${v.cardio}"></span>`:''}
     </button>`;
@@ -1294,6 +1598,7 @@ function vCalendario(){
   const mes=`${calMes.a}-${String(calMes.m+1).padStart(2,'0')}`;
   const total=Object.entries(S.dias).filter(([k])=>k.startsWith(mes));
   return `
+  ${vMeso()}
   <div class="row" style="margin-bottom:10px">
     <button class="btn ghost" style="width:auto;padding:6px 12px;margin:0" onclick="mover(-1)">←</button>
     <b>${MESES[calMes.m]} ${calMes.a}</b>
@@ -1315,6 +1620,63 @@ function vCalendario(){
     </div>
   </div>`;
 }
+/* ---------- mesociclo ----------
+   Guía del podcast (Galpin): unas 5 semanas subiendo carga, máximo 8, y luego una semana de descarga
+   (≈80–90 % del peso o menos series) o de descanso. Sin automatismos: solo te dice dónde estás. */
+const MESO_MIN=5, MESO_MAX=8, NAVIDAD='12-23';
+const diasEntre=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5);
+function mesoInicio(){
+  const fs=sesiones().map(([f])=>f).filter(f=>f<=hoy());
+  if(!fs.length) return null;
+  const man=S.config.mesoIni;
+  /* automático: primera sesión después del último hueco de 7 días o más sin pesas */
+  let auto=fs[0];
+  for(let i=1;i<fs.length;i++) if(diasEntre(fs[i-1],fs[i])>=8) auto=fs[i];
+  return (man&&man>=auto)?{f:man,man:true}:{f:auto,man:false};
+}
+function vMeso(){
+  const ini=mesoInicio();
+  if(!ini) return `<div class="sec"><h2>Mesociclo</h2><div class="mut">Guarda tu primera sesión y aquí verás en qué semana del mesociclo estás.</div></div>`;
+  const sem=Math.floor(diasEntre(ini.f,hoy())/7)+1;
+  const ses=sesiones().filter(([f])=>f>=ini.f&&f<=hoy());
+  let nav=hoy().slice(0,4)+'-'+NAVIDAD; if(nav<hoy()) nav=(+hoy().slice(0,4)+1)+'-'+NAVIDAD;
+  const semNav=Math.floor(diasEntre(ini.f,nav)/7)+1;
+  const tope=Math.max(MESO_MAX+2,sem+1,semNav<=16?semNav+1:0);
+  const X=w=>Math.min(100,(w/tope)*100).toFixed(1);
+  const est=sem<MESO_MIN?['subiendo',`Fase de carga. Te quedan ${MESO_MIN-sem} semana(s) hasta la zona de descarga.`]
+    :(sem<=MESO_MAX?['zona de descarga',`Estás en la ventana normal para descargar. Hazlo en cuanto notes estancamiento en los picos o cansancio acumulado; como tarde en la semana ${MESO_MAX}.`]
+    :['pasado',`Llevas ${sem-MESO_MAX} semana(s) más allá del máximo de ${MESO_MAX}. Una semana de descarga ahora te deja llegar con margen a los récords.`]);
+  /* picos dentro del mesociclo: peso al empezar → ahora, y fallos seguidos */
+  const picos=PICOS.map(n=>{
+    const xs=ses.map(([f,v])=>({f,e:v.sesion.ej.find(e=>e.n===n&&!e.sec)})).filter(x=>x.e&&x.e.reps.length);
+    if(!xs.length) return null;
+    let fallos=0; for(let i=xs.length-1;i>=0&&!xs[i].e.ok;i--) fallos++;
+    const a=xs[0].e.w, z=xs[xs.length-1].e.w;
+    return {n,a,z,pct:a>0?(z-a)/a*100:null,fallos,k:xs.length};
+  }).filter(Boolean);
+  const atasco=picos.filter(p=>p.fallos>=2);
+  return `<div class="sec">
+    <h2>Mesociclo</h2>
+    <div class="row"><div class="big">Semana ${sem}</div><div class="mut" style="text-align:right">desde ${larga(ini.f)}${ini.man?'':'<br>detectado solo'}</div></div>
+    <div class="serbar" style="height:14px;margin:12px 0 4px">
+      <i class="serzona" style="left:${X(MESO_MIN-1)}%;width:${(X(MESO_MAX)-X(MESO_MIN-1)).toFixed(1)}%"></i>
+      <b style="width:${X(sem)}%;background:${sem>MESO_MAX?'var(--red)':'var(--ink)'}"></b>
+      ${semNav<=tope?`<span style="position:absolute;left:${X(semNav)}%;top:-4px;bottom:-4px;border-left:2px dashed var(--mut)"></span>`:''}
+    </div>
+    <div class="row mut" style="font-size:11px"><span>0</span><span>${MESO_MIN}–${MESO_MAX} sem.: descarga${semNav<=tope?' · ┆ Navidad':''}</span><span>${tope} sem.</span></div>
+    <div class="row" style="margin-top:8px"><b>${est[0][0].toUpperCase()+est[0].slice(1)}</b><span class="mut">${ses.length} ${ses.length===1?'sesión':'sesiones'}</span></div>
+    <div class="mut" style="font-size:13px;margin-top:4px">${est[1]}</div>
+    ${picos.length?`<table style="margin-top:10px">
+      <tr><th>Pico</th><th class="n">Inicio</th><th class="n">Ahora</th><th class="n">Δ</th><th class="n">Fallos</th></tr>
+      ${picos.map(p=>`<tr><td>${esc(p.n)}</td><td class="n mut">${fmt(p.a)}</td><td class="n"><b>${fmt(p.z)}</b></td><td class="n ${p.pct>0?'up':''}">${p.pct==null?'—':(p.pct>0?'+':'')+fmt(p.pct,0)+' %'}</td><td class="n ${p.fallos>=2?'down':''}">${p.fallos||'—'}</td></tr>`).join('')}
+    </table>`:''}
+    ${atasco.length?`<div class="note"><b>Señal de estancamiento:</b> ${atasco.map(p=>esc(p.n)).join(', ')} con 2 o más fallos seguidos. Es el aviso típico para meter la descarga, aunque no hayas llegado a la semana ${MESO_MAX}.</div>`:''}
+    <div class="note">Navidad (23/12) ${semNav<=tope?'es la línea discontinua: ':'cae en la '}semana ${semNav} de este mesociclo${semNav>MESO_MAX?`, más allá del máximo. Una descarga a mitad (sobre la semana ${Math.min(MESO_MAX,Math.max(MESO_MIN,Math.round(semNav/2)))}) parte el bloque en dos tramos razonables y dejas la semana de Navidad como descanso total`:''}.</div>
+    <div class="note"><b>Descarga</b> = una semana con el 80–90 % del peso o la mitad de series, sin buscar récords. <b>Descanso</b> = una semana sin pesas. Al volver, marca en el calendario el día que empiezas el nuevo mesociclo, o se detecta solo tras 7 días sin pesas.</div>
+    ${ini.man?`<button class="mini" style="margin-top:8px" onclick="setMeso(null)">Volver a detección automática</button>`:''}
+  </div>`;
+}
+async function setMeso(f){ if(f) S.config.mesoIni=f; else delete S.config.mesoIni; await save(); render(); }
 function mover(n){let m=calMes.m+n,a=calMes.a;if(m<0){m=11;a--}if(m>11){m=0;a++}calMes={a,m};render();}
 function selDia(k){ calSel=(calSel===k)?null:k; render(); }
 const esManual=v=>!!(v.sesion&&(v.sesion.manual||!v.sesion.ej||!v.sesion.ej.length));
@@ -1338,25 +1700,32 @@ function detalleDia(){
     ${body}
     <div class="chips" style="margin-top:10px">
       ${TIPOS.map(t=>`<button onclick="marcarManual('${t}')">Marcar ${t}</button>`).join('')}
-      ${Object.keys(CARDIO).map(t=>`<button onclick="cardio('${t}',calSel).then(render)">${CARDIO[t]}</button>`).join('')}
+      ${Object.keys(CARDIO).map(t=>`<button onclick="cardio('${t}',calSel)">${CARDIO[t]}</button>`).join('')}
       ${(v.sesion||v.cardio)?`<button onclick="borrarDia()">Borrar día</button>`:''}
+      <button onclick="setMeso('${calSel}')">Empieza mesociclo</button>
     </div>
   </div>`;
 }
 async function marcarManual(t){
   const v=S.dias[calSel]||{};
+  if(v.sesion&&!esManual(v)){ v.sesion.tipo=t; await save(); render(); toast('Tipo cambiado a '+t+'. Las series se conservan'); return; }
   S.dias[calSel]=Object.assign({},v,{sesion:{tipo:t,manual:true,ej:[]}});
   await save(); render();
 }
 async function borrarDia(){
+  const v=S.dias[calSel]||{};
+  if(v.sesion&&!esManual(v)&&!confirm('¿Borrar la sesión '+v.sesion.tipo+' del '+larga(calSel)+' con todas sus series?')) return;
   delete S.dias[calSel]; await save(); render();
 }
 function racha(){
   const s=sesiones().map(([k])=>k); if(!s.length)return 0;
   const sem={};
-  s.forEach(k=>{const d=new Date(k),dw=(d.getDay()+6)%7,l=new Date(d);l.setDate(d.getDate()-dw);sem[iso(l)]=(sem[iso(l)]||0)+1;});
-  const claves=Object.keys(sem).sort().reverse(); let r=0;
-  for(const c of claves){ if(sem[c]>=3)r++; else break; }
+  const lun=k=>{const d=new Date(k+'T12:00:00');d.setDate(d.getDate()-(d.getDay()+6)%7);return iso(d);};
+  s.forEach(k=>{const l=lun(k);sem[l]=(sem[l]||0)+1;});
+  /* la semana en curso solo cuenta si ya tiene 3; si no, se empieza por la anterior */
+  let c=lun(hoy()), r=0;
+  if((sem[c]||0)<3){const d=new Date(c+'T12:00:00');d.setDate(d.getDate()-7);c=iso(d);}
+  while((sem[c]||0)>=3){ r++; const d=new Date(c+'T12:00:00');d.setDate(d.getDate()-7);c=iso(d); }
   return r;
 }
 
@@ -1399,7 +1768,7 @@ async function pegarDatos(){
   let d=null;
   try{ d=JSON.parse(t.value); }catch(e){ d=null; }
   if(!d||!d.config||!d.medidas){ toast('Ese texto no es una copia válida'); return; }
-  S=d; migrar(); await save(); go('inicio'); toast('Copia restaurada');
+  S=d; migrar(); medEd=null; await save(); go('inicio'); toast('Copia restaurada');
 }
 function exportar(){
   const a=document.createElement('a');
@@ -1409,7 +1778,7 @@ function exportar(){
 function importar(inp){
   const f=inp.files[0]; if(!f)return;
   const r=new FileReader();
-  r.onload=async()=>{try{const d=JSON.parse(r.result);if(!d.config)throw 0;S=d;migrar();await save();go('inicio');toast('Datos importados');}catch(e){toast('El archivo no tiene el formato esperado');}};
+  r.onload=async()=>{try{const d=JSON.parse(r.result);if(!d.config)throw 0;S=d;migrar();medEd=null;await save();go('inicio');toast('Datos importados');}catch(e){toast('El archivo no tiene el formato esperado');}};
   r.readAsText(f);
 }
 
